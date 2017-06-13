@@ -27,7 +27,7 @@ router.use(function(req, res, next){
 
 
 router.get('/', function (req, res){
-    res.json({message : 'ayy'});
+    res.json({message : 'Test.'});
 });
 
 router.route('/pieces')
