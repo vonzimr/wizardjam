@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>RadCrate</title>
+</head>
+<body>
+
+	<style>
+	#submit {
+		cursor:pointer;
+		margin: 1em auto;
+	}
+
+	.grid { margin:1em auto; border-collapse:collapse }
+
+	.grid td {
+		cursor:pointer;
+		background-color:red;
+		width:100px; height:100px;
+		border:1px solid black;
+	}
+
+	.grid td.clicked {
+		background-color:blue;
+	}
+	</style>
+
+	<div style="text-align: center;">
+		What is your room code?<br>
+		<input class="rm" type="text" name="room"><br>
+	</div>
+
+	<script>
+	var lastClicked;
+
+	var grid = clickableGrid(4,4,function(el,row,col,i){
+		if (el.className == "clicked") {
+			el.className = ""
+		} else if (el.className == "") {
+			el.className = "clicked"
+		}
+	});
+
+	document.body.appendChild(grid);
+	function clickableGrid( rows, cols, callback ){
+		var i=0;
+		var grid = document.createElement('table');
+		grid.className = 'grid';
+		for (var r=0;r<rows;++r){
+			var tr = grid.appendChild(document.createElement('tr'));
+			for (var c=0;c<cols;++c){
+				var cell = tr.appendChild(document.createElement('td'));
+				cell.addEventListener('click',(function(el,r,c,i){
+					return function(){ callback(el,r,c,i); }
+				})(cell,r,c,i),false);
+			}
+		}
+		return grid;
+	}
+	</script>
+
+	<div style="text-align: center;">
+		What do you want your block to say:<br>
+		<input class="msg" type="text" name="message"><br>
+	</div>	
+	
+	<div style="text-align: center;">
+		<button id="submit" type="button" onclick="submit()">Submit</div>
+	</div>
+
+	<div id="array"></div>
+
+	<div id="message"></div>
+
+	<div id="room"></div>
+
+	<script src="https://unpkg.com/axios/dist/axios.min.js">
+	function submit() {
+		var array = [];
+		var message = document.querySelector(".msg").value;
+		var room = document.querySelector(".rm").value;
+		document.querySelector(".msg").value = "";
+
+		var string = "Array: ";
+
+		document.getElementById("message").innerHTML = message;
+		document.getElementById("room").innerHTML = room;
+
+		var matrix = document.querySelector(".grid");
+
+		for (var i = 0; i < 4; i++) {
+			var row = matrix.rows[i];
+			for (var j = 0; j < 4; j++) {
+				var data = row.cells[j];
+				var value = 0;
+				if (data.className == "clicked") {
+					value = 1;
+					data.className = "";
+				}
+				string = string.concat(value);
+				string = string.concat(", ");
+			}
+		}
+		document.getElementById("array").innerHTML = string;
+
+		var json = {room_id: room,
+					submitted_by: name,
+					quote: message,
+					peice_array: array};
+
+		
+		axios.post('/pieces', json)
+		.then(function (response) {
+			console.log(response);
+		})
+		.catch(function (error) {
+			console.log(error);
+		});
+	}
+	</script>
+</body>
+</html>
