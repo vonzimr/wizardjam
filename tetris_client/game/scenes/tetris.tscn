@@ -1,0 +1,104 @@
+[gd_scene load_steps=2 format=1]
+
+[ext_resource path="res://scenes/grid.tscn" type="PackedScene" id=1]
+
+[node name="Tetris" type="Panel"]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 399.0
+margin/bottom = 801.0
+
+[node name="preview_1" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 399.0
+margin/top = 1.0
+margin/right = 495.0
+margin/bottom = 97.0
+
+[node name="preview_2" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 399.0
+margin/top = 123.0
+margin/right = 495.0
+margin/bottom = 219.0
+
+[node name="preview_3" type="Panel" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 399.0
+margin/top = 232.0
+margin/right = 495.0
+margin/bottom = 328.0
+
+[node name="Grid" parent="." instance=ExtResource( 1 )]
+
+margin/left = 40.0
+margin/top = 35.0
+margin/right = 80.0
+margin/bottom = 75.0
+
+[node name="Label" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 409.0
+margin/top = 543.0
+margin/right = 449.0
+margin/bottom = 557.0
+text = "Score:"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="score" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 418.0
+margin/top = 562.0
+margin/right = 459.0
+margin/bottom = 576.0
+text = "0"
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="restart" type="Button" parent="."]
+
+focus/ignore_mouse = false
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 409.0
+margin/top = 436.0
+margin/right = 469.0
+margin/bottom = 456.0
+toggle_mode = false
+enabled_focus_mode = 2
+shortcut = null
+text = "Restart"
+flat = false
+
+[connection signal="pressed" from="restart" to="Grid" method="restart_pressed"]
+
+
