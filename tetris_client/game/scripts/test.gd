@@ -16,4 +16,4 @@ func _ready():
 	print("All blocks.");
 	print(info)
 	#Accessing dict to get piece array
-	print(info[0]['piece_array'])
+	print(info)
