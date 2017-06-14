@@ -1,4 +1,5 @@
 
+
 var grid = clickableGrid(4,4,function(el,row,col,i){
     if (el.className == "clicked") {
         el.className = ""
@@ -7,7 +8,8 @@ var grid = clickableGrid(4,4,function(el,row,col,i){
     }
 });
 
-document.body.appendChild(grid);
+document.querySelector("#grid").appendChild(grid);
+
 function clickableGrid( rows, cols, callback ){
     var i=0;
     var grid = document.createElement('table');
@@ -26,7 +28,7 @@ function clickableGrid( rows, cols, callback ){
 
 
 function submit() {
-    var array = "";
+    var array = [];
     var message = document.querySelector(".msg").value;
     var room = document.querySelector(".rm").value;
     var name = document.querySelector(".name").value;
@@ -50,11 +52,14 @@ function submit() {
             }
             string = string.concat(value);
             string= string.concat(", ");
-            array += value;
+            array.push(value == 1);
 
         }
 
     }
+    console.log(array);
+    console.log(name);
+    console.log(message);
     console.log(array);
     document.getElementById("array").innerHTML = string;
 

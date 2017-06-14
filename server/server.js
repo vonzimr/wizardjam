@@ -13,6 +13,7 @@ var Piece = require('./models/piece');
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
 
+app.use(express.static('assets'))
 var port = process.env.PORT || 8080;
 
 //ROUTES
@@ -43,18 +44,24 @@ router.route('/pieces')
 
         piece.save(function(err){
             if (err){
-                res.send(err);
+                res.status(400)
+                res.send("Not valid");
             }
-            res.json({message : 'succes'});
+            else{
+                res.json({message : 'succes'});
+            }
         });
 
     })
     .get(function(req, res){
         Piece.find(function(err, pieces){
             if(err){
-                res.send(err);
+              res.status(400)
+              res.json({message: "Transaction Failed"});
             }
-            res.json(pieces);
+            else{
+                res.json(pieces);
+            }
         });
     });
 
@@ -64,9 +71,12 @@ router.route('/pieces/:room_id')
   .get(function(req, res){
       Piece.find({room_id: req.params.room_id}, function(err,  pieces){
           if(err){
-              res.send(err);
+              res.status(400)
+              res.json({message: "Transaction Failed"});
           }
-          res.json(pieces);
+          else{
+              res.json(pieces);
+          }
       });
   })
 
