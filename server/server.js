@@ -43,9 +43,11 @@ router.route('/pieces')
 
         piece.save(function(err){
             if (err){
-                res.send(err);
+                res.send("No");
             }
-            res.json({message : 'succes'});
+            else{
+                res.json({message : 'succes'});
+            }
         });
 
     })
@@ -54,7 +56,9 @@ router.route('/pieces')
             if(err){
                 res.send(err);
             }
-            res.json(pieces);
+            else{
+                res.json(pieces);
+            }
         });
     });
 
@@ -66,7 +70,9 @@ router.route('/pieces/:room_id')
           if(err){
               res.send(err);
           }
-          res.json(pieces);
+          else{
+              res.json(pieces);
+          }
       });
   })
 

@@ -62,7 +62,7 @@ function clickableGrid( rows, cols, callback ){
 
 
 function submit() {
-    var array = "";
+    var array = [];
     var message = document.querySelector(".msg").value;
     var room = document.querySelector(".rm").value;
     var name = document.querySelector(".name").value;
@@ -86,7 +86,7 @@ function submit() {
             }
             string = string.concat(value);
             string= string.concat(", ");
-            array += value;
+            array.push(value == 1);
 
         }
 
