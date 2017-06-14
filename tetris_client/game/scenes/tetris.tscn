@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://scenes/grid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/dialogbox.tscn" type="PackedScene" id=2]
 
 [node name="Tetris" type="Panel"]
 
@@ -99,6 +100,24 @@ shortcut = null
 text = "Restart"
 flat = false
 
+[node name="msg" type="Label" parent="."]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 0
+margin/left = 0.0
+margin/top = 0.0
+margin/right = 40.0
+margin/bottom = 14.0
+percent_visible = 1.0
+lines_skipped = 0
+max_lines_visible = -1
+
+[node name="dialog_box" parent="." instance=ExtResource( 2 )]
+
 [connection signal="pressed" from="restart" to="Grid" method="restart_pressed"]
 
 
+[editable path="dialog_box"]
+[editable path="dialog_box/diag_text"]
