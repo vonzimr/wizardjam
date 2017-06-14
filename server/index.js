@@ -1,4 +1,3 @@
-var lastClicked;
 
 var grid = clickableGrid(4,4,function(el,row,col,i){
     if (el.className == "clicked") {

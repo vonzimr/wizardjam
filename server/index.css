@@ -15,3 +15,7 @@
 .grid td.clicked {
     background-color:blue;
 }
+
+body {
+    background-image: url("/tetris_8.jpg");
+}
