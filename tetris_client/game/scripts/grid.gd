@@ -15,7 +15,7 @@ var block = preload("res://images/block.png")
 
 var block_colors = [
 	Color(1, 0.5, 0.5),
-	Color(0.5, 1, 0.5),
+	Color(0.5, 1, 0.5, .1),
 	Color(0.5, 0.5, 1),
 	Color(0.8, 0.4, 0.8),
 	Color(0.8, 0.8, 0.4),
@@ -49,10 +49,9 @@ var piece_shape #Individual block coordinates
 var piece_pos = Vector2()
 var piece_rot = 0
 
-var preview_pos = Vector2()
-var preview_rot = 0
+var test_pos = Vector2(piece_pos.x, piece_pos.y)
 
-func piece_cell_xform(p, er = 0):
+func piece_cell_xform(p, piece_pos, piece_rot, er = 0):
 	#p is a vector rom the block_list
 	var r = (4 + er + piece_rot) % 4
 	#Transforms for the piece based on the list of block rotations
@@ -73,8 +72,12 @@ func _draw():
 
 	if (piece_active):
 		for c in piece_shape:
-			#block = texture
-			draw_texture_rect(block, Rect2(piece_cell_xform(c)*bs, bs), false, block_colors[0])
+			#block = texture]
+			#Draw one by one each square based on rotation and position on the screen.
+			draw_texture_rect(block, Rect2(piece_cell_xform(c, piece_pos, piece_rot)*bs, bs), false, block_colors[0])
+			#Drawing the preview block
+			var max_pos = display_block(piece_shape)
+			draw_texture_rect(block, Rect2(piece_cell_xform(c, Vector2(piece_pos.x, piece_pos.y + max_pos.y), piece_rot)*bs, bs), false, block_colors[1])
 	if(block_shapes.size() > 0):
 		preview_block(get_node("../preview_1").get_global_pos() / 16, 0)
 	if(block_shapes.size() > 1):
@@ -90,7 +93,7 @@ func preview_block(offset, index):
 
 func piece_check_fit(piece_shape, ofs, er = 0):
 	for c in piece_shape:
-		var pos = piece_cell_xform(c, er) + ofs
+		var pos = piece_cell_xform(c, piece_pos, piece_rot, er) + ofs
 		if (pos.x < 0):
 			return false
 		if (pos.y < 0):
@@ -157,12 +160,12 @@ func restart_pressed():
 	get_node("../restart").release_focus()
 	update()
 
-func display_block():
-	var test_shape = piece_shape
-	var test_pos = piece_pos
-	while(piece_check_fit(test_shape, Vector2(0, 1 ))):
+func display_block(shape):
+	var test_pos = Vector2(piece_pos.x, 0)
+	while(piece_check_fit(shape, Vector2(0, test_pos.y+1 ))):
 		test_pos.y += 1
-		update()
+
+	return test_pos
 
 	
 func fast_drop():
@@ -179,7 +182,7 @@ func piece_move_down():
 		update()
 	else:
 		for c in piece_shape:
-			var pos = piece_cell_xform(c)
+			var pos = piece_cell_xform(c, piece_pos, piece_rot)
 			cells[pos] = piece_shape
 		test_collapse_rows()
 		if(block_shapes.size() > 0):
@@ -197,6 +200,22 @@ func piece_rotate():
 	update()
 
 
+func move_left():
+	if (piece_check_fit(piece_shape, Vector2(-1, 0))):
+			piece_pos.x -= 1
+			update()
+func move_right():
+	if (piece_check_fit(piece_shape, Vector2(1, 0))):
+		piece_pos.x += 1
+		update()
+func move_up():
+	fast_drop()
+	
+func move_down():
+	if (piece_check_fit(piece_shape, Vector2(0, 1))):
+		piece_pos.y += 1
+		update()
+
 func _input(ie):
 	if(ie.is_action("new_block")):
 		#For debugging!
@@ -212,7 +231,6 @@ func _input(ie):
 			piece_pos.x -= 1
 			update()
 	elif (ie.is_action("move_right")):
-#		display_block()
 		if (piece_check_fit(piece_shape, Vector2(1, 0))):
 			piece_pos.x += 1
 			update()
