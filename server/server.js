@@ -44,7 +44,8 @@ router.route('/pieces')
 
         piece.save(function(err){
             if (err){
-                res.send("No");
+                res.status(400)
+                res.send("Not valid");
             }
             else{
                 res.json({message : 'succes'});
@@ -55,7 +56,8 @@ router.route('/pieces')
     .get(function(req, res){
         Piece.find(function(err, pieces){
             if(err){
-                res.send(err);
+              res.status(400)
+              res.json({message: "Transaction Failed"});
             }
             else{
                 res.json(pieces);
@@ -69,7 +71,8 @@ router.route('/pieces/:room_id')
   .get(function(req, res){
       Piece.find({room_id: req.params.room_id}, function(err,  pieces){
           if(err){
-              res.send(err);
+              res.status(400)
+              res.json({message: "Transaction Failed"});
           }
           else{
               res.json(pieces);
