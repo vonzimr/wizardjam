@@ -26,8 +26,8 @@ router.use(function(req, res, next){
 });
 
 
-router.get('/', function (req, res){
-    res.json({message : 'Test.'});
+app.get('/', function (req, res){
+    res.sendFile(path.join(__dirname + '/index.html'));
 });
 
 router.route('/pieces')
@@ -38,7 +38,7 @@ router.route('/pieces')
         piece.submitted_by = req.body.submitted_by;
         piece.quote        = req.body.quote;
         piece.piece_array = req.body.piece_array;
-        console.log("data: " + req.body.piece_array);
+        console.log("piece_array: " + req.body.piece_array);
         console.log("quote: " + req.body.quote);
 
         piece.save(function(err){

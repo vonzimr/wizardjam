@@ -1,10 +1,10 @@
 var mongoose = require('mongoose');
 
 var pieceSchema = new mongoose.Schema({
-    room_id: Number,
-    submitted_by: String,
-    quote: String,
-    piece_array: [Number]
+    room_id: {type: Number, required: true},
+    submitted_by: {type: String, required: true},
+    quote: {type: String, required: true},
+    piece_array: {type: String, required: function(){return this.piece_array.length == 16}}
 
 });
 
