@@ -23,14 +23,14 @@ var block_colors = [
 	Color(0.7, 0.7, 0.7)]
 
 var block_shapes = [
-	[ Vector2(0, -1), Vector2(0, 0)],
-	[ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ], # I
-	[ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ], # O
-	[ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ], # S
-	[ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ], # Z
-	[ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ], # L
-	[ Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ], # J
-	[ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ], # T
+	{"msg": "hello", "shape": [ Vector2(0, -1), Vector2(0, 0)]},
+	{"msg": "Beep", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ]}, # I
+	{"msg": "bam", "shape":[ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]}, # O
+	{"msg": "Hello", "shape":[ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ]}, # S
+	{"msg": "We are the best around", "shape":[ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]}, # Z
+	{"msg": "Beep boop toot", "shape": [ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ]}, # L
+	{"msg": "I'm a robot", "shape": [Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}, # J
+	{"msg": "Eyes of a hawk", "shape": [ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}, # T
 ]
 
 var block_rotations = [
@@ -45,7 +45,7 @@ var height = 0
 var cells = {}
 
 var piece_active = false
-var piece_shape #Individual block coordinates
+var piece_dic #Individual block coordinates
 var piece_pos = Vector2()
 var piece_rot = 0
 
@@ -71,12 +71,12 @@ func _draw():
 				draw_texture_rect(block, Rect2(Vector2(x, y)*bs, bs), false, block_colors[0])
 
 	if (piece_active):
-		for c in piece_shape:
+		for c in piece_dic["shape"]:
 			#block = texture]
 			#Draw one by one each square based on rotation and position on the screen.
 			draw_texture_rect(block, Rect2(piece_cell_xform(c, piece_pos, piece_rot)*bs, bs), false, block_colors[0])
 			#Drawing the preview block
-			var max_pos = display_block(piece_shape)
+			var max_pos = display_block(piece_dic["shape"])
 			draw_texture_rect(block, Rect2(piece_cell_xform(c, Vector2(piece_pos.x, piece_pos.y + max_pos.y), piece_rot)*bs, bs), false, block_colors[1])
 	if(block_shapes.size() > 0):
 		preview_block(get_node("../preview_1").get_global_pos() / 16, 0)
@@ -87,12 +87,12 @@ func _draw():
 
 func preview_block(offset, index):
 	var bs = block.get_size()
-	for c in block_shapes[index]:
+	for c in block_shapes[index]["shape"]:
 		draw_texture_rect(block, Rect2((c+offset)*bs, bs), false, block_colors[0])
 		update()
 
-func piece_check_fit(piece_shape, ofs, er = 0):
-	for c in piece_shape:
+func piece_check_fit(piece_dic, ofs, er = 0):
+	for c in piece_dic:
 		var pos = piece_cell_xform(c, piece_pos, piece_rot, er) + ofs
 		if (pos.x < 0):
 			return false
@@ -110,13 +110,13 @@ func piece_check_fit(piece_shape, ofs, er = 0):
 
 
 func new_piece():
-	piece_shape = block_shapes.front()
+	piece_dic = block_shapes.front()
 	block_shapes.pop_front()
 	piece_pos = Vector2(width/2, 2)
 	piece_active = true
 	piece_rot = 0
 	
-	if (not piece_check_fit(piece_shape, Vector2(0, 1))):
+	if (not piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		# Game over
 		game_over()
 	
@@ -169,7 +169,7 @@ func display_block(shape):
 
 	
 func fast_drop():
-	while(piece_check_fit(piece_shape, Vector2(0, 1 ))):
+	while(piece_check_fit(piece_dic["shape"], Vector2(0, 1 ))):
 		piece_pos.y += 1
 		update()
 
@@ -177,13 +177,13 @@ func piece_move_down():
 	if (!piece_active):
 		return
 	#Uses Vector2(0, 1) to make sure it can fit in the next row
-	if (piece_check_fit(piece_shape, Vector2(0, 1))):
+	if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		piece_pos.y += 1
 		update()
 	else:
-		for c in piece_shape:
+		for c in piece_dic["shape"]:
 			var pos = piece_cell_xform(c, piece_pos, piece_rot)
-			cells[pos] = piece_shape
+			cells[pos] = piece_dic["shape"]
 		test_collapse_rows()
 		if(block_shapes.size() > 0):
 			new_piece()
@@ -194,32 +194,32 @@ func piece_move_down():
 
 func piece_rotate():
 	var adv = 1
-	if (not piece_check_fit(piece_shape, Vector2(), 1)):
+	if (not piece_check_fit(piece_dic["shape"], Vector2(), 1)):
 		return
 	piece_rot = (piece_rot + adv) % 4
 	update()
 
 
 func move_left():
-	if (piece_check_fit(piece_shape, Vector2(-1, 0))):
+	if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
 			piece_pos.x -= 1
 			update()
 func move_right():
-	if (piece_check_fit(piece_shape, Vector2(1, 0))):
+	if (piece_check_fit(piece_dic["shape"], Vector2(1, 0))):
 		piece_pos.x += 1
 		update()
 func move_up():
 	fast_drop()
 	
 func move_down():
-	if (piece_check_fit(piece_shape, Vector2(0, 1))):
+	if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		piece_pos.y += 1
 		update()
 
 func _input(ie):
 	if(ie.is_action("new_block")):
 		#For debugging!
-		block_shapes.push_front([ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ])
+		block_shapes.push_front({"msg": "Nikoma has the football", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ]})
 		piece_active = true
 	if (not piece_active):
 		return
@@ -227,17 +227,17 @@ func _input(ie):
 		return
 
 	if (ie.is_action("move_left")):
-		if (piece_check_fit(piece_shape, Vector2(-1, 0))):
+		if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
 			piece_pos.x -= 1
 			update()
 	elif (ie.is_action("move_right")):
-		if (piece_check_fit(piece_shape, Vector2(1, 0))):
+		if (piece_check_fit(piece_dic["shape"], Vector2(1, 0))):
 			piece_pos.x += 1
 			update()
 	elif (ie.is_action("move_up")):
 		fast_drop()
 	elif (ie.is_action("move_down")):
-		if (piece_check_fit(piece_shape, Vector2(0, 1))):
+		if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 			piece_pos.y += 1
 			update()
 	elif (ie.is_action("rotate")):
@@ -252,8 +252,8 @@ func setup(w, h):
 
 
 func _ready():
-	piece_shape = block_shapes.front()
-	piece_shape.pop_front()
+	piece_dic = block_shapes.front()
+	block_shapes.pop_front()
 	setup(20, 30)
 	score_label = get_node("../score")
 	
