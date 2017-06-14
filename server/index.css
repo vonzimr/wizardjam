@@ -1,0 +1,17 @@
+#submit {
+    cursor:pointer;
+    margin: 1em auto;
+}
+
+.grid { margin:1em auto; border-collapse:collapse }
+
+.grid td {
+    cursor:pointer;
+    background-color:red;
+    width:100px; height:100px;
+    border:1px solid black;
+}
+
+.grid td.clicked {
+    background-color:blue;
+}
