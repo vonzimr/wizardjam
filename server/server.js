@@ -8,7 +8,7 @@ var mongoose = require('mongoose');
 mongoose.connect('mongodb://localhost/testris');
 
 
-var Piece = require('./models/piece');
+var Room = require('./models/room');
 
 app.use(bodyParser.urlencoded({extended : true}));
 app.use(bodyParser.json());
@@ -31,54 +31,73 @@ app.get('/', function (req, res){
     res.sendFile(path.join(__dirname + '/index.html'));
 });
 
-router.route('/pieces')
+//Create a new Room
+router.route('/room/create')
     .post(function(req, res){
+        var room = new Room();
 
-        var piece          = new Piece();
-        piece.room_id      = req.body.room_id;
-        piece.submitted_by = req.body.submitted_by;
-        piece.quote        = req.body.quote;
-        piece.piece_array = req.body.piece_array;
-        console.log("piece_array: " + req.body.piece_array);
-        console.log("quote: " + req.body.quote);
-
-        piece.save(function(err){
-            if (err){
-                res.status(400)
-                res.send("Not valid");
-            }
-            else{
-                res.json({message : 'succes'});
-            }
-        });
-
-    })
-    .get(function(req, res){
-        Piece.find(function(err, pieces){
+        room.save(function(err){
             if(err){
-              res.status(400)
-              res.json({message: "Transaction Failed"});
+                res.status(400)
+                res.send("Not Valid");
+            } else{
+                res.location('/api/room/id/' + room.room_id);
+                res.status(201);
+                res.send();
             }
-            else{
-                res.json(pieces);
-            }
-        });
+
+        })
     });
 
+router.route('/room/id/:room_id')
+    .post(function(req, res){
 
+        Room.update({room_id: req.params.room_id}, 
+            {$push: 
+                {"submissions": 
+                    {
+                        submitted_by : req.body.submitted_by, 
+                            quote : req.body.quote,
+                            shape : req.body.shape
+                    }
+                }
+            }, 
 
-router.route('/pieces/:room_id')
-  .get(function(req, res){
-      Piece.find({room_id: req.params.room_id}, function(err,  pieces){
-          if(err){
-              res.status(400)
-              res.json({message: "Transaction Failed"});
-          }
-          else{
-              res.json(pieces);
-          }
-      });
-  })
+            function(err){
+                if (err){
+                    res.status(400)
+                    res.send("Not valid");
+                }
+                else{
+                    res.json({message : 'succes'});
+                }
+            });
+
+    });
+router.route('/room/id/:room_id/submissions/:count')
+    .get(function(req, res){
+        Room.aggregate([
+            {$match: {room_id: req.params.room_id}},
+            {$unwind: "$submissions"},
+            {$limit: parseInt(req.params.count)},
+            {$project: 
+                {
+                    _id: 1, 
+                    "shape":"$submissions.shape", 
+                    "submitted_by":"$submissions.submitted_by",
+                    "quote":"$submissions.quote"}
+            },
+        ], function(err, submissions){
+
+            if(err){
+                res.status(400)
+                res.json(err);
+            }
+            else{
+                res.json(submissions);
+            }
+        }) 
+    });
 
 app.use('/api', router);
 
