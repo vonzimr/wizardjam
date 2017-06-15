@@ -23,16 +23,10 @@ var block_colors = [
 	Color(0.7, 0.7, 0.7)]
 
 var block_shapes = [
-	{"msg": "hello", "shape": [ Vector2(0, -1), Vector2(0, 0)]},
-	{"msg": "Beep", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ]}, # I
-	{"msg": "bam", "shape": [ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]}, # O
-	{"msg": "Hello", "shape":[ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ]}, # S
-	{"msg": "We are the best around", "shape": [ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]}, # Z
-	{"msg": "Beep boop toot", "shape": [ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ]}, # L
-	{"msg": "I'm a robot", "shape": [Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}, # J
-	{"msg": "Eyes of a hawk", "shape": [ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}, # T
 ]
 
+func add_block(block, msg):
+	block_shapes.push_front({"msg": msg, "shape": block})
 
 var block_rotations = [
 	Matrix32(Vector2(1, 0), Vector2(0, 1), Vector2()),
@@ -115,7 +109,6 @@ func new_piece():
 	piece_pos = Vector2(width/2, 2)
 	piece_active = true
 	piece_rot = 0
-	
 	if (not piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		# Game over
 		game_over()
@@ -194,6 +187,8 @@ func piece_move_down():
 		show_message()
 		if(block_shapes.size() > 0):
 			new_piece()
+			#Check if new blocks were added to the database in a separate thread
+			get_node("../db_node").push_blocks_threaded()
 		#IF no shapes are available, make the current shape inactive!
 		else:
 			piece_active = false
@@ -257,10 +252,11 @@ func setup(w, h):
 	get_node("timer").start()
 
 
-func _ready():
-	piece_dic = block_shapes.front()
-	block_shapes.pop_front()
+func setup_game():
 	setup(20, 30)
 	score_label = get_node("../score")
 	
-	#set_process_input(true)
+	set_process_input(true)
+	
+
+	
