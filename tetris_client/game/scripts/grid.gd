@@ -25,13 +25,14 @@ var block_colors = [
 var block_shapes = [
 	{"msg": "hello", "shape": [ Vector2(0, -1), Vector2(0, 0)]},
 	{"msg": "Beep", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ]}, # I
-	{"msg": "bam", "shape":[ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]}, # O
+	{"msg": "bam", "shape": [ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]}, # O
 	{"msg": "Hello", "shape":[ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ]}, # S
-	{"msg": "We are the best around", "shape":[ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]}, # Z
+	{"msg": "We are the best around", "shape": [ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]}, # Z
 	{"msg": "Beep boop toot", "shape": [ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ]}, # L
 	{"msg": "I'm a robot", "shape": [Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}, # J
 	{"msg": "Eyes of a hawk", "shape": [ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}, # T
 ]
+
 
 var block_rotations = [
 	Matrix32(Vector2(1, 0), Vector2(0, 1), Vector2()),
@@ -69,7 +70,6 @@ func _draw():
 			if (Vector2(x, y) in cells):
 				#block = texture
 				draw_texture_rect(block, Rect2(Vector2(x, y)*bs, bs), false, block_colors[0])
-
 	if (piece_active):
 		for c in piece_dic["shape"]:
 			#block = texture]
@@ -173,6 +173,12 @@ func fast_drop():
 		piece_pos.y += 1
 		update()
 
+func show_message():
+	var msg = get_node("../dialog_box")
+	msg.get_node("diag_text/Label").set_dialog_text([piece_dic["msg"]])
+	msg.get_node("diag_text/Label").next_dialog()
+	msg.set_global_pos(piece_pos*16)
+	
 func piece_move_down():
 	if (!piece_active):
 		return
@@ -185,6 +191,7 @@ func piece_move_down():
 			var pos = piece_cell_xform(c, piece_pos, piece_rot)
 			cells[pos] = piece_dic["shape"]
 		test_collapse_rows()
+		show_message()
 		if(block_shapes.size() > 0):
 			new_piece()
 		#IF no shapes are available, make the current shape inactive!
@@ -198,8 +205,7 @@ func piece_rotate():
 		return
 	piece_rot = (piece_rot + adv) % 4
 	update()
-
-
+	
 func move_left():
 	if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
 			piece_pos.x -= 1
@@ -257,4 +263,4 @@ func _ready():
 	setup(20, 30)
 	score_label = get_node("../score")
 	
-	set_process_input(true)
+	#set_process_input(true)
