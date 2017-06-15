@@ -27,6 +27,16 @@ function clickableGrid( rows, cols, callback ){
 }
 
 function validMove(array) {
+    var count = 0;
+    for (var k = 0; k < 16; k++) {
+        if (array[k%4][Math.floor(k/4)] == 1) {
+            count++;
+        }
+    }
+    if (count > 6) {
+        console.log("Too many cells filled");
+        return false;
+    }
     for (var i = 0; i < 16; i++) {
         var curr = [i%4, Math.floor(i/4)];
         if (array[curr[0]][curr[1]] == 1) {
@@ -37,9 +47,8 @@ function validMove(array) {
                     for (var k = 0; k < 4; k++) {
                         checked[k] = [0, 0, 0, 0];
                     }
-                    console.log("src:  " + i%4 + ", " + Math.floor(i/4) + "\n"+
-                                "dest: " + j%4 + ", " + Math.floor(j/4));
                     if (!path(array, checked, curr, dest)) {
+                        console.log("Cells not connected");
                         return false;
                     }
                 }
@@ -49,31 +58,28 @@ function validMove(array) {
     }
 }
 
+/*
+maze solver to see if a path can be found between each checked cell
+*/
 function path(array, checked, curr, dest) {
     var up    = [curr[0], curr[1]-1];
     var right = [curr[0]+1, curr[1]];
     var down  = [curr[0], curr[1]+1];
     var left  = [curr[0]-1, curr[1]];
 
-    checked[curr[0]][curr[1]] = 1;
-
-    //base case dest has been reached
-    if (curr[0] == dest[0] && curr[1] == dest[1]) return true;
-
+    if (curr[0] < 0 || curr[0] > 3 ||curr[1] < 0 || curr[1] > 3) return false;
+    if (array[curr[0]][curr[1]] == 0) return false;
     if (checked[curr[0]][curr[1]] == 1) return false;
 
-    if (array[up[0]][up[1]] == 1) {
-        return path(array, checked, up, dest);
-    }
-    if (array[right[0]][right[1]] == 1) {
-        return path(array, checked, right, dest);
-    }
-    if (array[down[0]][down[1]] == 1) {
-        return path(array, checked, down, dest);
-    }
-    if (array[left[0]][left[1]] == 1) {
-        return path(array, checked, left, dest);
-    }
+    checked[curr[0]][curr[1]] = 1;
+
+    if (curr[0] == dest[0] && curr[1] == dest[1]) return true;
+
+    if (path(array, checked, up,    dest)) return true;
+    if (path(array, checked, down,  dest)) return true;
+    if (path(array, checked, left,  dest)) return true;
+    if (path(array, checked, right, dest)) return true;
+
     return false;
 }
 
@@ -111,13 +117,6 @@ function submit() {
 
     }
 
-    console.log(array);
-    console.log(name);
-    console.log(message);
-    console.log(twoDA[0]);
-    console.log(twoDA[1]);
-    console.log(twoDA[2]);
-    console.log(twoDA[3]);
     document.getElementById("array").innerHTML = string;
 
     if (validMove(twoDA)) {
