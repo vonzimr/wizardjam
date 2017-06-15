@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=1]
+[gd_scene load_steps=8 format=1]
 
 [ext_resource path="res://scenes/Spatial.gd" type="Script" id=1]
 [ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=2]
@@ -49,7 +49,11 @@ bcs/contrast = 1.0
 bcs/saturation = 1.0
 srgb/enabled = false
 
-[sub_resource type="FixedMaterial" id=2]
+[sub_resource type="BoxShape" id=4]
+
+extents = Vector3( 0.49973, 0.501223, 0.0563728 )
+
+[sub_resource type="FixedMaterial" id=3]
 
 flags/visible = true
 flags/double_sided = false
@@ -143,13 +147,35 @@ params/attenuation = 1.0
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 environment = SubResource( 1 )
 
-[node name="Quad" type="Quad" parent="."]
+[node name="Area" type="Area" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( -0.145817, -2.29547e-08, 0.983248, -2.40835e-07, 0.6, -1.68968e-08, -0.786599, -1.79448e-07, -0.182271, 0.359076, 2.96456, 0.320556 )
+transform/local = Transform( -0.322736, 0, 0.946489, 0, 1, 0, -0.946489, 0, -0.322736, 0.545381, 2.86342, 0.327587 )
+input/ray_pickable = true
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 0, -0.000959963, 0, 1, 0, 0.000959963, 0, 1, 0.00223359, 0.000336409, -0.0525971 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+
+[node name="Quad" type="Quad" parent="Area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
 geometry/visible = true
-geometry/material_override = SubResource( 2 )
+geometry/material_override = SubResource( 3 )
 geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
@@ -165,5 +191,13 @@ quad/axis = 2
 quad/size = Vector2( 1, 1 )
 quad/offset = Vector2( 0, 0 )
 quad/centered = true
+
+[node name="CollisionShape" type="CollisionShape" parent="Area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, -0.000959963, 0, 1, 0, 0.000959963, 0, 1, 0.00223359, 0.000336409, -0.0525971 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
 
 

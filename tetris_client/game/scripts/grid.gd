@@ -201,17 +201,6 @@ func piece_rotate():
 	piece_rot = (piece_rot + adv) % 4
 	update()
 	
-func move_left():
-	if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
-			piece_pos.x -= 1
-			update()
-func move_right():
-	if (piece_check_fit(piece_dic["shape"], Vector2(1, 0))):
-		piece_pos.x += 1
-		update()
-func move_up():
-	fast_drop()
-	
 func move_down():
 	if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		piece_pos.y += 1

@@ -3,7 +3,7 @@ signal poll_database
 # class member variables go here, for example:
 # var a = 2
 # var b = "textvar"
-
+var thread = Thread.new()
 func _ready():
 	# Called every time the node is added to the scene.
 	# Initialization here
@@ -19,14 +19,14 @@ func _ready():
 	connect("poll_database", self, "push_blocks_to_grid")
 
 func push_blocks_to_grid(userdata):
-	print("Signaled!")
 	var info = requests.get_blocks();
 	for i in range(info.size()):
 		get_node("../Grid").add_block(parse_piece_array(info[i]['piece_array']), info[i]['quote'])
-
+	thread = Thread.new()
+	
 func push_blocks_threaded():
-	var thread = Thread.new()
-	thread.start(self, "push_blocks_to_grid", null,  2)
+	if not thread.is_active():
+		thread.start(self, "push_blocks_to_grid")
 
 func parse_piece_array(piece_array):
 	var count = 0
