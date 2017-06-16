@@ -11,9 +11,9 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 0.0
+margin/left = 180.0
 margin/top = 0.0
-margin/right = 399.0
+margin/right = 579.0
 margin/bottom = 801.0
 
 [node name="db_node" type="Node2D" parent="."]

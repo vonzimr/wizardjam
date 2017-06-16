@@ -1,5 +1,5 @@
 
-extends RigidBody
+extends Spatial
 
 # Member variables
 var r_pos = Vector2()
@@ -34,19 +34,6 @@ func _fixed_process(delta):
 	var cam = get_global_transform()
 	var org = get_translation()
 	
-	#Direction orients the vector 
-	if (Input.is_action_pressed("obs_forward")):
-		dir += direction(Vector3(0, 0, -mov_speed))
-	if (Input.is_action_pressed("obs_backward")):
-		dir += direction(Vector3(0, 0, mov_speed))
-	if (Input.is_action_pressed("obs_left")):
-		dir += direction(Vector3(-mov_speed, 0, 0))
-	if (Input.is_action_pressed("obs_right")):
-		dir += direction(Vector3(mov_speed, 0, 0))
-	if(get_colliding_bodies().size() == 0):
-		set_linear_velocity(get_linear_velocity())
-	else:
-		set_linear_velocity(dir*mov_speed)
 	var d = delta*0.1
 	
 	var yaw = get_transform().rotated(Vector3(0, 1, 0), d*r_pos.x)

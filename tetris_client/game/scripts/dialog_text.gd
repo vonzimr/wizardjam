@@ -37,7 +37,10 @@ func _ready():
 	set_process(true)
 	timer.start()
 
+var accum = 0
 func _process(delta):
+	accum += delta
+	get_material().set_shader_param("Color", Vector3(sin(accum*2), cos(accum*5), tan(.2)))
 	set_percent_visible(1 - timer.get_time_left()/timer.get_wait_time())
 	
 #func _input(event):
