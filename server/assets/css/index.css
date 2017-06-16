@@ -1,27 +1,41 @@
 
-body {
-    background-image: url("/assets/images/tetris_8.png");
+html {
+    background-image: url("../images/tetris_8.png");
     background-size: cover;
-
 }
 
 #submit {
-    cursor:pointer;
+    cursor: pointer;
     margin: 1em auto;
 }
 
+#error {
+	background-color: rgb(255, 0, 0);
+	text-align: center;
+}
+
+.padded {
+	padding-left:  25%;
+	padding-right: 25%;
+}
+
+.input {
+	background-color: rgb(0, 191, 255);
+	text-align: center;
+}
+
 .grid {
-	margin:1em auto; 
-	border-collapse:collapse 
+	margin: 1em auto; 
+	border-collapse: collapse 
 }
 
 .grid td {
-    cursor:pointer;
-    background-color:red;
-    width:100px; height:100px;
-    border:1px solid black;
+    cursor: pointer;
+    background-color: red;
+    width:250px; height: 250px;
+    border: 1px solid black;
 }
 
 .grid td.clicked {
-    background-color:blue;
+    background-color: blue;
 }
