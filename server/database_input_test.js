@@ -56,4 +56,4 @@ function create_room_send_data(n){
         });
 }
 
-create_room_send_data(100);
+create_room_send_data(5);

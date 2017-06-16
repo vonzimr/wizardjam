@@ -26,7 +26,6 @@ router.use(function(req, res, next){
 
 });
 
-
 app.get('/', function (req, res){
     res.sendFile(path.join(__dirname + '/index.html'));
 });
@@ -74,15 +73,16 @@ router.route('/room/id/:room_id')
             });
 
     });
+
 router.route('/room/id/:room_id/submissions/:count')
-    .get(function(req, res){
+    .delete(function(req, res){
         Room.aggregate([
             {$match: {room_id: req.params.room_id}},
             {$unwind: "$submissions"},
             {$limit: parseInt(req.params.count)},
             {$project: 
                 {
-                    _id: 1, 
+                    _id: 0, 
                     "shape":"$submissions.shape", 
                     "submitted_by":"$submissions.submitted_by",
                     "quote":"$submissions.quote"}
@@ -94,10 +94,23 @@ router.route('/room/id/:room_id/submissions/:count')
                 res.json(err);
             }
             else{
+                for(var i = 0; i < req.params.count; i++){
+                    console.log(req.params.room_id);
+                    Room.update({room_id: req.params.room_id}, 
+                        {$pop: { "submissions": -1}}, 
+                        function(err, sub){
+                            if(err){
+                                res.status(400);
+                                res.json(err);
+                            }
+                        })
+                }
+                res.status(200);
                 res.json(submissions);
             }
         }) 
     });
+
 
 app.use('/api', router);
 
