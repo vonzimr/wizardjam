@@ -1,6 +1,8 @@
 
-#wrap {
-    background-image: url("./assets/images/tetris_8.png");
+body {
+    background-image: url("/assets/images/tetris_8.png");
+    background-size: cover;
+
 }
 
 #submit {
