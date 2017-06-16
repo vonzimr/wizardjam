@@ -6,7 +6,7 @@
 - type ''node server.js'' to start the node server
 - You should now be able to connect to the server from either Godot or the web interface
 
-#API
+# API
   - Creating a Room: Send a POST request to `/room/create`. The room location
     is returned in the response Header:
     ```
@@ -23,7 +23,7 @@
     ```
 
     - Sending block submission to room: Send a POST request to `/room/id/<ROOM_ID>` In the following JSON format:
-    ```JSON
+    ```
     {
         submitted_by: String,
         quote: String,
