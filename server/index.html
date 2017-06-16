@@ -2,13 +2,13 @@
 <html>
 <head>
     <title>RadCrate</title>
-    <link rel="stylesheet" href="css/index.css">
+    <link rel="stylesheet" href="/css/index.css">
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-    <script src="js/index.js"></script>
+    
 </head>
 
-<body onload=createGrid()>
-
+<body>
+    <div id="wrap">
     <div style="text-align: center;">
         What is your room code?<br>
         <input class="rm" type="text" name="room"><br>
@@ -18,8 +18,9 @@
     <div style="text-align: center;">
         What's your name?<br>
         <input class="name" type="text" name="name"><br>
-    </div>  
+    </div> 
 
+    <div id="grid"></div>
 
     <div style="text-align: center;">
         What do you want your block to say:<br>
@@ -30,10 +31,15 @@
         <button id="submit" type="button" onclick="submit()">Submit</div>
     </div>
 
+    <div id="move"></div>
+
     <div id="array"></div>
 
     <div id="message"></div>
 
     <div id="room"></div>
+
+    <script src="/js/index.js"></script>
+    </div>
 </body>
 </html>

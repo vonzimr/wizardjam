@@ -1,9 +1,17 @@
+
+#wrap {
+    background-image: url("./assets/images/tetris_8.png");
+}
+
 #submit {
     cursor:pointer;
     margin: 1em auto;
 }
 
-.grid { margin:1em auto; border-collapse:collapse }
+.grid {
+	margin:1em auto; 
+	border-collapse:collapse 
+}
 
 .grid td {
     cursor:pointer;
