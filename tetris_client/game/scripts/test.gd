@@ -11,7 +11,7 @@ func _ready():
 	#Connects to the server, keeps connection alive.
 	requests.connectToServer();
 	#Gets array of all blocks.
-	var info = requests.get_blocks();
+	var info = requests.get_blocks(1242, 1);
 	#All blocks
 	print("All blocks.");
 	print(info)
