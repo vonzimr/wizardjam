@@ -2,15 +2,32 @@
 extends Spatial
 var tetris
 var prev_pos = null
-
-
+var anim
+var world
 func _ready():
 	var tex = get_node("Viewport").get_render_target_texture()
+	world = get_node("WorldEnvironment").get_environment()
 #	get_node("128k/128_screen").get("material/0").set_texture(FixedMaterial.PARAM_DIFFUSE, tex)
 	get_node("Area/Quad").get_material_override().set_texture(FixedMaterial.PARAM_DIFFUSE, tex)
 	set_process_input(true)
 	tetris = get_node("Viewport/Tetris/Grid")
+	anim = get_node("arcade/AnimationPlayer")
 	get_node("Area").connect("input_event", self, "_on_area_input_event")
+	get_node("Viewport/Tetris/Grid").connect("move_con", self, "_move_con")
+	get_node("arcade/switch/col").connect("input_event", self, "_switch_bloom")
+	
+func _switch_bloom(camera, event, click_pos, click_normal, shape_idx):
+	if event.is_action_pressed("click"):
+		if(world.is_fx_enabled(world.FX_GLOW)):
+			world.set_enable_fx(world.FX_GLOW, false)
+		else:
+			world.set_enable_fx(world.FX_GLOW, true)
+		
+	
+
+func _move_con(input):
+	print(anim.get_current_animation())
+	anim.play(input)
 
 func _on_area_input_event(camera, event, click_pos, click_normal, shape_idx):
 	print("hello")

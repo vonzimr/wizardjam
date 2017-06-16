@@ -3,43 +3,40 @@
 <head>
     <title>RadCrate</title>
     <link rel="stylesheet" href="/css/index.css">
+    <link rel="icon" href="../images/Gold_Crate-icon.ico" type="image/x-icon">
+    <link rel="shortcut icon" href="../images/Gold_Crate-icon.ico" type="image/x-icon"/>
     <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
     
 </head>
 
 <body>
-    <div id="wrap">
-    <div style="text-align: center;">
-        What is your room code?<br>
-        <input class="rm" type="text" name="room"><br>
+    <div class="padded">
+        <div class="input">
+            What is your room code?<br>
+            <input class="rm" type="text" name="room"><br>
+        </div>
+
+        <div class="input">
+            What's your name?<br>
+            <input class="name" type="text" name="name"><br><br>
+        </div> 
+
+        <div id="error"></div>
     </div>
-
-
-    <div style="text-align: center;">
-        What's your name?<br>
-        <input class="name" type="text" name="name"><br>
-    </div> 
 
     <div id="grid"></div>
 
-    <div style="text-align: center;">
-        What do you want your block to say:<br>
-        <input class="msg" type="text" name="message"><br>
+    <div class="padded">
+        <div class="input">
+            What do you want your block to say:<br>
+            <input class="msg" type="text" name="message"><br><br>
+        </div>
+
+        <div style="text-align: center;">
+            <button id="submit" type="button" onclick="submit()">Submit</div>
+        </div>
     </div>
-
-    <div style="text-align: center;">
-        <button id="submit" type="button" onclick="submit()">Submit</div>
-    </div>
-
-    <div id="move"></div>
-
-    <div id="array"></div>
-
-    <div id="message"></div>
-
-    <div id="room"></div>
 
     <script src="/js/index.js"></script>
-    </div>
 </body>
 </html>

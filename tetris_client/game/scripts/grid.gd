@@ -1,6 +1,6 @@
 
 extends Control
-
+signal move_con(input)
 # Simple Tetris-like demo, (c) 2012 Juan Linietsky
 # Implemented by using a regular Control and drawing on it during the _draw() callback.
 # The drawing surface is updated only when changes happen (by calling update())
@@ -73,11 +73,11 @@ func _draw():
 			var max_pos = display_block(piece_dic["shape"])
 			draw_texture_rect(block, Rect2(piece_cell_xform(c, Vector2(piece_pos.x, piece_pos.y + max_pos.y), piece_rot)*bs, bs), false, block_colors[1])
 	if(block_shapes.size() > 0):
-		preview_block(get_node("../preview_1").get_global_pos() / 16, 0)
+		preview_block(get_node("../preview_1").get_pos() / 16, 0)
 	if(block_shapes.size() > 1):
-		preview_block(get_node("../preview_2").get_global_pos() / 16, 1)
+		preview_block(get_node("../preview_2").get_pos() / 16, 1)
 	if(block_shapes.size() > 2):
-		preview_block(get_node("../preview_3").get_global_pos() / 16, 2)
+		preview_block(get_node("../preview_3").get_pos() / 16, 2)
 
 func preview_block(offset, index):
 	var bs = block.get_size()
@@ -170,7 +170,8 @@ func show_message():
 	var msg = get_node("../dialog_box")
 	msg.get_node("diag_text/Label").set_dialog_text([piece_dic["msg"]])
 	msg.get_node("diag_text/Label").next_dialog()
-	msg.set_global_pos(piece_pos*16)
+	msg.set_pos(Vector2(width/2, height/2)*16)
+	msg.get_node("diag_text/AnimationPlayer").play("fade")
 	
 func piece_move_down():
 	if (!piece_active):
@@ -219,18 +220,23 @@ func _input(ie):
 	if (ie.is_action("move_left")):
 		if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
 			piece_pos.x -= 1
+			emit_signal("move_con", "left")
 			update()
 	elif (ie.is_action("move_right")):
 		if (piece_check_fit(piece_dic["shape"], Vector2(1, 0))):
 			piece_pos.x += 1
+			emit_signal("move_con", "right")
 			update()
 	elif (ie.is_action("move_up")):
+		emit_signal("move_con", "up")
 		fast_drop()
 	elif (ie.is_action("move_down")):
+		emit_signal("move_con", "down")
 		if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 			piece_pos.y += 1
 			update()
 	elif (ie.is_action("rotate")):
+		emit_signal("move_con", "button")
 		piece_rotate()
 
 func setup(w, h):

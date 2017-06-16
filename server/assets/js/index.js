@@ -10,7 +10,7 @@ var grid = clickableGrid(4,4,function(el,row,col,i){
 
 document.querySelector("#grid").appendChild(grid);
 
-function clickableGrid( rows, cols, callback ){
+function clickableGrid(rows, cols, callback) {
     var i=0;
     var grid = document.createElement('table');
     grid.className = 'grid';
@@ -26,7 +26,7 @@ function clickableGrid( rows, cols, callback ){
     return grid;
 }
 
-function validMove(array) {
+function validMove(array, error) {
     var count = 0;
     for (var k = 0; k < 16; k++) {
         if (array[k%4][Math.floor(k/4)] == 1) {
@@ -34,8 +34,13 @@ function validMove(array) {
         }
     }
     if (count > 6) {
-        console.log("Too many cells filled");
-        return false;
+        console.log("Too many cells");
+        error = error.concat("Too many cells filled (Only input up to 6)\n");
+        return [false, error];
+    } else if (count < 2) {
+        console.log("Too few cells filled");
+        error = error.concat("Too few cells filled (Need to select at least 2)\n");
+        return [false, error];
     }
     for (var i = 0; i < 16; i++) {
         var curr = [i%4, Math.floor(i/4)];
@@ -49,11 +54,12 @@ function validMove(array) {
                     }
                     if (!path(array, checked, curr, dest)) {
                         console.log("Cells not connected");
-                        return false;
+                        error = error.concat("Cells must be directly adjacent\n");
+                        return [false, error];
                     }
                 }
             }
-            return true;
+            return [true, error];
         }
     }
 }
@@ -88,12 +94,11 @@ function submit() {
     var message = document.querySelector(".msg").value;
     var room = document.querySelector(".rm").value;
     var name = document.querySelector(".name").value;
-    document.querySelector(".msg").value = "";
+    var error = "";
+    document.getElementById("error").innerHTML = "";
+    //document.querySelector(".msg").value = "";
 
     var string = "Array: ";
-
-    document.getElementById("message").innerHTML = message;
-    document.getElementById("room").innerHTML = room;
 
     var matrix = document.querySelector(".grid");
     var twoDA = [];
@@ -106,7 +111,7 @@ function submit() {
             var value = 0;
             if (data.className == "clicked") {
                 value = 1;
-                //data.className = "";
+                data.className = "";
             }
             string = string.concat(value);
             string= string.concat(", ");
@@ -114,27 +119,29 @@ function submit() {
             inner.push(value);
         }
         twoDA.push(inner);
-
     }
 
-    document.getElementById("array").innerHTML = string;
+    var move = validMove(twoDA, error);
+    var isValid = move[0];
+    error = move[1];
+    console.log(error);
 
-    if (validMove(twoDA)) {
+    if (isValid) {
         var json = {room_id: room,
                     submitted_by: name,
                     quote: message,
-                    piece_array: array};
+                    shape: array};
 
 
-        axios.post('/api/pieces', json)
+        axios.post('/room/id/', json)
         .then(function (response) {
             console.log(response);
         })
         .catch(function (error) {
             console.log(error);
         });
-        document.getElementById("move").innerHTML = "Nice move"
     } else {
-        document.getElementById("move").innerHTML = "Not a valid move"
+        console.log("error");
+        document.getElementById("error").innerHTML = error;
     }
 }

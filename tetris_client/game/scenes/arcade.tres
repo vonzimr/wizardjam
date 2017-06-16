@@ -1,0 +1,43 @@
+[gd_resource type="Animation" format=1]
+
+[resource]
+
+length = 0.34
+loop = false
+step = 0.1
+tracks/0/type = "transform"
+tracks/0/path = NodePath("cabinet-col.001")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = FloatArray( 0, 1, -4.91761, 2.09422, -3.25895, 0, 0, 0, 1, 1, 1, 1, 0.34, 1, -4.91761, 2.09422, -3.25895, 0, 0, 0, 1, 1, 1, 1 )
+tracks/1/type = "transform"
+tracks/1/path = NodePath("cabinet-col.006")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = FloatArray( 0, 1, -4.77509, 2.0971, -3.25576, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1, 0.0383334, 1, -4.77509, 2.09687, -3.25583, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1, 0.08, 1, -4.77509, 2.09649, -3.25595, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1, 0.246667, 1, -4.77509, 2.09458, -3.25655, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1, 0.288333, 1, -4.77509, 2.09434, -3.25663, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1, 0.33, 1, -4.77509, 2.09426, -3.25665, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1, 0.34, 1, -4.77509, 2.09426, -3.25665, 0.152007, -4.53016e-09, 8.42457e-17, 0.988379, 1, 1, 1 )
+tracks/2/type = "transform"
+tracks/2/path = NodePath("cabinet-col.007")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = FloatArray( 0, 1, -3.38143, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1, 0.34, 1, -3.38143, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1 )
+tracks/3/type = "transform"
+tracks/3/path = NodePath("cabinet-col.008")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = FloatArray( 0, 1, -0.308562, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1, 0.34, 1, -0.308562, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1 )
+tracks/4/type = "transform"
+tracks/4/path = NodePath("cabinet-col.009")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = FloatArray( 0, 1, 1.22561, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1, 0.34, 1, 1.22561, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1 )
+tracks/5/type = "transform"
+tracks/5/path = NodePath("cabinet-col.010")
+tracks/5/interp = 1
+tracks/5/imported = false
+tracks/5/keys = FloatArray( 0, 1, 2.76318, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1, 0.34, 1, 2.76318, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1 )
+tracks/6/type = "transform"
+tracks/6/path = NodePath("cabinet-col.011")
+tracks/6/interp = 1
+tracks/6/imported = false
+tracks/6/keys = FloatArray( 0, 1, 4.29848, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1, 0.34, 1, 4.29848, 2.09422, -3.25974, 0, 0, 0, 1, 1, 1, 1 )
+
