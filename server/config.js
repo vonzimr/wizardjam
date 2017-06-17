@@ -1,6 +1,8 @@
+var uuid = require('node-uuid');
+
 module.exports = {
     'database': 'mongodb://localhost/testris',
-    'secret': 'changeme'
+    'secretKey': uuid.v4()
 
       
 };
