@@ -13,13 +13,16 @@ func _ready():
 	#Gets array of all blocks.
 	#All blocks
 	#Accessing dict to get piece array
-	push_blocks_to_grid(null)
-	
-	get_node("../Grid").setup_game()
-	connect("poll_database", self, "push_blocks_to_grid")
+	#push_blocks_to_grid(null)
+	var room_location = requests.create_room()
+	var blocks = requests.get_blocks("FKEUQ4QXY", 5)
+	print(blocks)
+	print("room loc: " + room_location)
+	#get_node("../Grid").setup_game()
+	#connect("poll_database", self, "push_blocks_to_grid")
 
 func push_blocks_to_grid(userdata):
-	var info = requests.get_blocks();
+	var info = requests.get_blocks('AAA', 5);
 	for i in range(info.size()):
 		get_node("../Grid").add_block(parse_piece_array(info[i]['piece_array']), info[i]['quote'])
 	thread = Thread.new()
