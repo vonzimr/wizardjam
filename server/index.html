@@ -12,7 +12,7 @@
 <body>
     <div class="padded">
         <div class="input">
-            What is your room code?<br>
+            <br>What is your room code?<br>
             <input class="rm" type="text" name="room"><br>
         </div>
 
@@ -23,16 +23,18 @@
 
         <div id="error"></div>
 
-        <div id="submit" onclick="createRoom()">
+        <!--
+        <div id="create" onclick="createRoom()">
             Create a room (testing)
         </div>
+        -->
     </div>
 
     <div id="grid"></div>
 
     <div class="padded">
-        <div class="input" onkeydown="enterSubmit()">
-            What do you want your block to say:<br>
+        <div class="input" onkeydown="enterSubmit()" style="padding-left: 5px; padding-right: 5px;">
+            <br>What do you want your block to say:<br>
             <input class="msg" type="text" name="message"><br><br>
         </div>
 
