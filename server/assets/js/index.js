@@ -1,4 +1,11 @@
+/*
+TODO
+-make buttons click
+-change background
+-change borders of input boxes
+*/
 
+var currRoom = "";
 
 var grid = clickableGrid(4,4,function(el,row,col,i){
     if (el.className == "clicked") {
@@ -89,13 +96,53 @@ function path(array, checked, curr, dest) {
     return false;
 }
 
+function createRoom() {
+    clickAni();
+    axios.post("http://localhost:8080/api/room/create")
+        .then(function (response) {
+            console.log(response);
+            var roomID = response.headers.location.replace("/api/room/id/", "")
+            document.querySelector(".rm").value = roomID;
+        })
+        .catch(function (error) {
+            console.log(error);
+        });
+}
+
+function enterSubmit() {
+    if (event.keyCode == 13) {
+        submit();
+    }
+}
+
+function clickAni() {
+        var start = null;
+        var element = document.getElementById("submit");
+
+        function step(timestamp) {
+            if (!start) start = timestamp;
+            var progress = timestamp;
+            element.id = "submitclicked";
+            if (progress < 2000) {
+                element.id = "submit"
+                window.requestAnimationFrame(step);
+            }
+        }
+
+        window.requestAnimationFrame(step);
+}
+
 function submit() {
+
+    clickAni();
+
     var array = [];
     var message = document.querySelector(".msg").value;
     var room = document.querySelector(".rm").value;
     var name = document.querySelector(".name").value;
     var error = "";
     document.getElementById("error").innerHTML = "";
+    
     //document.querySelector(".msg").value = "";
 
     var string = "Array: ";
@@ -127,19 +174,22 @@ function submit() {
     console.log(error);
 
     if (isValid) {
-        var json = {room_id: room,
-                    submitted_by: name,
+        var json = {submitted_by: name,
                     quote: message,
                     shape: array};
 
+        var roomID = "/api/room/id/"+room;
 
-        axios.post('/room/id/', json)
+        axios.post(roomID, json)
         .then(function (response) {
             console.log(response);
         })
         .catch(function (error) {
             console.log(error);
+            document.getElementById("error").innerHTML = error;
         });
+
+        document.querySelector(".msg").value = "";
     } else {
         console.log("error");
         document.getElementById("error").innerHTML = error;
