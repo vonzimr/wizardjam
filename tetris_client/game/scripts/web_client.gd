@@ -51,12 +51,11 @@ func server_get(url, headers=null):
 				rb = rb + chunk # Append to read buffer
 		return rb.get_string_from_ascii()
 		
-func server_delete(url, headers=null):
-	if headers == null:
-#		var auth = "Authorization: Bearer %s" % access_token
-		var agent = "User-Agent: Pirulo/1.0 (Godot)"
-		var accept = "Accept: */*"
-		headers = [agent, accept]
+func server_delete(url, token):
+	var agent = "User-Agent: Pirulo/1.0 (Godot)"
+	var accept = "Accept: */*"
+	var xaccess = "x-access-token: %s" % token
+	var headers = [agent, accept, xaccess]
 	var err = http.request(HTTPClient.METHOD_DELETE, url, headers)
 
 	assert( err == OK ) # Make sure all is OK
@@ -85,6 +84,11 @@ func server_delete(url, headers=null):
 				rb = rb + chunk # Append to read buffer
 		return rb.get_string_from_ascii()
 
+func json_to_dict(resp):
+	var json = str('{"array":',  resp, '}')
+	var dict = {}
+	dict.parse_json(json)
+	return(dict['array'])
 
 func server_post(url, data):
 	var json_bin = data.to_json().to_utf8()
@@ -118,7 +122,7 @@ func server_post(url, data):
 				OS.delay_usec(100)
 			else:
 				rb = rb + chunk
-			result = rb.get_string_from_ascii()
+			result = json_to_dict(rb.get_string_from_ascii())
 			#print(result.to_ascii().get_string_from_ascii())
 		return [result, headers]
 	else:
@@ -127,13 +131,17 @@ func server_post(url, data):
 			
 
 func create_room():
+	connectToServer()
 	var resp = server_post("/api/room/create", {})
-	return resp[1]['Location']
+	var location = null
+	var token = null
+	print(resp[0])
+	if(resp[0]['success']):
+		location = resp[1]['Location']
+		token = resp[0]['token']
+	return {'location': location, 'token': token}
 
-func get_blocks(room_code, count):
-	var resp = server_delete("/api/room/id/%s/submissions/%s" % [room_code, count])
-	var json = str('{"array":',  resp, '}')
-	var dict = {}
-	dict.parse_json(json)
-	print(resp)
-	return dict
+func get_blocks(location, count, token):
+	var url = "%s/submissions/%s" % [location, count]
+	var resp = server_delete(url, token)
+	return json_to_dict(resp)
