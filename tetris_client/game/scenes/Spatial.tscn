@@ -1,9 +1,10 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scenes/Spatial.gd" type="Script" id=1]
 [ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/tetris.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/arcade.scn" type="PackedScene" id=4]
+[ext_resource path="res://audio/tetris loop at 12_8sec.ogg" type="AudioStream" id=5]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -101,7 +102,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0369877, 2.58901, -2.
 
 [node name="Viewport" type="Viewport" parent="."]
 
-rect = Rect2( 0, 0, 800, 800 )
+rect = Rect2( 0, 0, 800, 600 )
 own_world = false
 world = null
 transparent_bg = false
@@ -199,5 +200,25 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 environment = SubResource( 3 )
 
 [node name="arcade" parent="." instance=ExtResource( 4 )]
+
+[node name="SpatialStreamPlayer" type="SpatialStreamPlayer" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.050657, 2.33213, -3.80945 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 100.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+stream/stream = ExtResource( 5 )
+stream/play = true
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = true
+stream/paused = false
+stream/loop_restart_time = 12.0
+stream/buffering_ms = 500
 
 

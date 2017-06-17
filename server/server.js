@@ -2,33 +2,62 @@ const express = require('express')
 const app = express()
 var path = require('path');
 var bodyParser = require('body-parser');
-
-
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/testris');
 
+var config = require('./config');
 
+var jwt = require('jsonwebtoken');
+var morgan = require('morgan');
+var token = require('rand-token');
+var isValidMove = require('./middleware/validmove.js');
+
+//Database
+mongoose.connect(config.database);
 var Room = require('./models/room');
+app.set('secretKey', config.secretKey);
 
-app.use(bodyParser.urlencoded({extended : true}));
+//Express
+app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
 
 app.use(express.static('assets'))
+
+app.use(morgan('dev'))
+
 var port = process.env.PORT || 8080;
 
 //ROUTES
 var router = express.Router();
 
-
-router.use(function(req, res, next){
-  console.log('Something is happening.');
-  next();
-
-});
-
 app.get('/', function (req, res){
     res.sendFile(path.join(__dirname + '/index.html'));
 });
+
+
+function isAuthenticated(req, res, next) {
+    console.log("LOL");
+    var token = req.body.token || req.query.token || req.headers['x-access-token'];
+    
+    if (token){
+        // verifies secret and checks exp
+        jwt.verify(token, app.get('secretKey'), function(err, decoded) {      
+            if (err) {
+                return res.json({ success: false, message: 'Failed to authenticate token.' });    
+            } else {
+                // if everything is good, save to request for use in other routes
+                req.decoded = decoded;    
+                next();
+            }
+        });
+    }
+    else{
+        res.status(403);
+        res.json({success: 0,
+            message: "Not Authenticated",
+        });
+    }
+}
+
 
 //Create a new Room
 router.route('/room/create')
@@ -40,15 +69,22 @@ router.route('/room/create')
                 res.status(400)
                 res.send("Not Valid");
             } else{
+                var token = jwt.sign({room_id: room.room_id}, app.get('secretKey'), {
+                    expiresIn: 60*60*24 // expires in 24 hours
+                });
                 res.location('/api/room/id/' + room.room_id);
                 res.status(201);
-                res.send();
+                res.json(
+                    {success: true,
+                     message: "Have fun!",
+                     token: token});
             }
 
         })
     });
 
 router.route('/room/id/:room_id')
+//  .post(isValidMove, function(req, res){
     .post(function(req, res){
 
         Room.update({room_id: req.params.room_id}, 
@@ -75,7 +111,7 @@ router.route('/room/id/:room_id')
     });
 
 router.route('/room/id/:room_id/submissions/:count')
-    .delete(function(req, res){
+    .delete(isAuthenticated, function(req, res){
         Room.aggregate([
             {$match: {room_id: req.params.room_id}},
             {$unwind: "$submissions"},

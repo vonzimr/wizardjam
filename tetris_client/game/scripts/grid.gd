@@ -23,6 +23,11 @@ var block_colors = [
 	Color(0.7, 0.7, 0.7)]
 
 var block_shapes = [
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]}
+
 ]
 
 func add_block(block, msg):
@@ -246,11 +251,11 @@ func setup(w, h):
 	new_piece()
 	get_node("timer").start()
 
+func _ready():
+	score_label = get_node("../score")
 
 func setup_game():
 	setup(20, 30)
-	score_label = get_node("../score")
-	
 	set_process_input(true)
 	
 

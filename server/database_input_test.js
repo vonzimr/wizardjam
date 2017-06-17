@@ -50,6 +50,7 @@ function create_room_send_data(n){
                 send_block(create_data(), room_url);
             }
             console.log("Sent " + n + " items.");
+            console.log(response['data']['token']);
         })
         .catch(function (error) {
             console.log(error);
