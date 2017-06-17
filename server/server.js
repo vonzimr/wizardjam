@@ -2,18 +2,28 @@ const express = require('express')
 const app = express()
 var path = require('path');
 var bodyParser = require('body-parser');
-
-
 var mongoose = require('mongoose');
-mongoose.connect('mongodb://localhost/testris');
+
+var config = require('./config');
+
+var jwt = require('jsonwebtoken');
+var morgan = require('morgan');
 
 
+
+//Database
+mongoose.connect(config.database);
 var Room = require('./models/room');
+app.set('SuperSecret', config.secret);
 
-app.use(bodyParser.urlencoded({extended : true}));
+//Express
+app.use(bodyParser.urlencoded({extended : false}));
 app.use(bodyParser.json());
 
 app.use(express.static('assets'))
+
+app.use(morgan('dev'))
+
 var port = process.env.PORT || 8080;
 
 //ROUTES
