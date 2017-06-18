@@ -14,7 +14,11 @@ func _init(url, port).(url, port):
 func get_blocks(n):
 	var header = ["x-access-token: " + token]
 	var resp = .delete(room_url + "/submissions/" + String(n), header)
-	return .json_to_dict(resp['content'])
+	var json = .json_to_dict(resp['content'])
+	if json == null:
+		return []
+	else:
+		return json
 
 func get_room_url():
 	return _base_url + room_url

@@ -21,14 +21,19 @@ var block_colors = [
 	Color(0.8, 0.8, 0.4),
 	Color(0.4, 0.8, 0.8),
 	Color(0.7, 0.7, 0.7)]
+var web_block_shapes = []
 
 var block_shapes = [
- {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
- {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
- {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
- {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]}
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ]},
+	{"msg": "", "shape": [ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]},
+	{"msg": "", "shape": [ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ]},
+	{"msg": "", "shape": [ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]},
+	{"msg": "", "shape": [ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ]},
+	{"msg": "", "shape": [ Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]},
+	{"msg": "", "shape": [ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}]
 
-]
+func add_web_block(block, msg, submitted_by):
+	web_block_shapes.push_front({"msg": msg, "shape": block, "submitted_by": submitted_by})
 
 func add_block(block, msg):
 	block_shapes.push_front({"msg": msg, "shape": block})
@@ -45,7 +50,7 @@ var height = 0
 var cells = {}
 
 var piece_active = false
-var piece_dic #Individual block coordinates
+var piece_dic = {'shape': null, 'message': null} #Individual block coordinates
 var piece_pos = Vector2()
 var piece_rot = 0
 
@@ -77,16 +82,16 @@ func _draw():
 			#Drawing the preview block
 			var max_pos = display_block(piece_dic["shape"])
 			draw_texture_rect(block, Rect2(piece_cell_xform(c, Vector2(piece_pos.x, piece_pos.y + max_pos.y), piece_rot)*bs, bs), false, block_colors[1])
-	if(block_shapes.size() > 0):
+	if(web_block_shapes.size() > 0):
 		preview_block(get_node("../preview_1").get_pos() / 16, 0)
-	if(block_shapes.size() > 1):
+	if(web_block_shapes.size() > 1):
 		preview_block(get_node("../preview_2").get_pos() / 16, 1)
-	if(block_shapes.size() > 2):
+	if(web_block_shapes.size() > 2):
 		preview_block(get_node("../preview_3").get_pos() / 16, 2)
 
 func preview_block(offset, index):
 	var bs = block.get_size()
-	for c in block_shapes[index]["shape"]:
+	for c in web_block_shapes[index]["shape"]:
 		draw_texture_rect(block, Rect2((c+offset)*bs, bs), false, block_colors[0])
 		update()
 
@@ -109,8 +114,15 @@ func piece_check_fit(piece_dic, ofs, er = 0):
 
 
 func new_piece():
-	piece_dic = block_shapes.front()
-	block_shapes.pop_front()
+
+	print(block_shapes.size())
+	
+	if web_block_shapes.size() == 0:
+		piece_dic = block_shapes.front()
+	else:
+		piece_dic = web_block_shapes.front()
+		web_block_shapes.pop_front()
+
 	piece_pos = Vector2(width/2, 2)
 	piece_active = true
 	piece_rot = 0
@@ -194,7 +206,7 @@ func piece_move_down():
 		if(block_shapes.size() > 0):
 			new_piece()
 			#Check if new blocks were added to the database in a separate thread
-			get_node("../db_node").push_blocks_threaded()
+
 		#IF no shapes are available, make the current shape inactive!
 		else:
 			piece_active = false

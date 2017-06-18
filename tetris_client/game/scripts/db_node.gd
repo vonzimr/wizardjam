@@ -1,33 +1,26 @@
 extends Node2D
-signal poll_database
+
 var db
-var thread = Thread.new()
-	# Called every time the node is added to the scene.
+
 func _ready():
 	var Connection = preload("res://scripts/Game_Client.gd")
 	db = Connection.new("http://localhost", 8080)
-	print(db.get_room_url())
-
-
-func push_blocks_to_grid(userdata):
-	var info = db.get_blocks(1);
-
-	print(info)
-	print(info.size())
-	if(info == null):
-		get_node("../Grid").block_shapes.push_front({"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]})
-		return []
-	if(info.size() == 0):
-		get_node("../Grid").block_shapes.push_front({"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]})
-	else:
-		for i in range(info.size()):
-			print("for loop")
-			get_node("../Grid").add_block(parse_shape(info[i]['shape']), info[i]['quote'])
-	thread = Thread.new()
 	
-func push_blocks_threaded():
-	if not thread.is_active():
-		thread.start(self, "push_blocks_to_grid")
+	#Shows room code
+	print(db.get_room_url())
+	
+	var thread = Thread.new()
+	thread.start(self, "get_blocks_from_database")
+
+func get_blocks_from_database(d):
+	while true:
+		var blocks = db.get_blocks(10)
+		for block in blocks:
+			print(block)
+			var shape = parse_shape(block['shape'])
+			get_node("../Grid").add_web_block(shape, block['quote'], block['submitted_by'])
+		OS.delay_msec(1000)
+
 
 func parse_shape(shape):
 	var count = 0
