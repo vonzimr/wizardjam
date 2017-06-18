@@ -16,7 +16,7 @@ input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 1 )
-shapes/0/transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -1.21603, 0 )
+shapes/0/transform = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -1.63107, 0 )
 shapes/0/trigger = false
 collision/layers = 1
 collision/mask = 1
@@ -44,7 +44,7 @@ __meta__ = {
 [node name="CollisionShape" type="CollisionShape" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -1.21603, 0 )
+transform/local = Transform( 1, 0, 0, 0, -1.62921e-07, -1, 0, 1, -1.62921e-07, 0, -1.63107, 0 )
 shape = SubResource( 1 )
 trigger = false
 _update_shape_index = 0
@@ -52,7 +52,6 @@ _update_shape_index = 0
 [node name="Spatial" type="Spatial" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.877197, -0.307785 )
 
 [node name="Camera" type="Camera" parent="Spatial"]
 

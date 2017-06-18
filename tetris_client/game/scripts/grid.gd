@@ -1,6 +1,7 @@
 
 extends Control
 signal move_con(input)
+signal play_sample(samp_name)
 # Simple Tetris-like demo, (c) 2012 Juan Linietsky
 # Implemented by using a regular Control and drawing on it during the _draw() callback.
 # The drawing surface is updated only when changes happen (by calling update())
@@ -160,6 +161,7 @@ func test_collapse_rows():
 					cells.erase(Vector2(x, y + accum_down))
 		
 		if (collapse):
+			emit_signal("play_sample", "line clear")
 			accum_down += 1
 	
 	score += accum_down*100
@@ -167,6 +169,7 @@ func test_collapse_rows():
 
 func game_over():
 	piece_active = false
+	emit_signal("play_sample", "death")
 	get_node("gameover").set_text("Game over!")
 	update()
 
@@ -187,9 +190,13 @@ func display_block(shape):
 	return test_pos
 
 func fast_drop():
-	while(piece_check_fit(piece_dic["shape"], Vector2(0, 1 ))):
-		piece_pos.y += 1
-		update()
+	if piece_active:
+		emit_signal("play_sample", "drop")
+		while(piece_check_fit(piece_dic["shape"], Vector2(0, 1 ))):
+			piece_pos.y += 1
+			update()
+		piece_move_down()
+			
 
 func show_message():
 	var label = get_node("../diag_text/Label")
@@ -228,6 +235,7 @@ func piece_rotate():
 	if (not piece_check_fit(piece_dic["shape"], Vector2(), 1)):
 		return
 	piece_rot = (piece_rot + adv) % 4
+	emit_signal("play_sample", "rotate left")
 	update()
 
 func move_down():
