@@ -21,7 +21,6 @@ func get_blocks_from_database(d):
 			get_node("../Grid").add_web_block(shape, block['quote'], block['submitted_by'])
 		OS.delay_msec(1000)
 
-
 func parse_shape(shape):
 	var count = 0
 	var vec_array = []

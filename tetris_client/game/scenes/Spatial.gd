@@ -14,7 +14,7 @@ func _ready():
 	anim = get_node("arcade/AnimationPlayer")
 	get_node("Area").connect("input_event", self, "_on_area_input_event")
 	get_node("Viewport/Tetris/Grid").connect("move_con", self, "_move_con")
-	get_node("arcade/switch/col").connect("input_event", self, "_switch_bloom")
+#	get_node("arcade/switch/col").connect("input_event", self, "_switch_bloom")
 	
 func _switch_bloom(camera, event, click_pos, click_normal, shape_idx):
 	if event.is_action_pressed("click"):
