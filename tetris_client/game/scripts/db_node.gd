@@ -1,32 +1,28 @@
 extends Node2D
 signal poll_database
-var room
-# class member variables go here, for example:
-# var a = 2
-# var b = "textvar"
+var db
 var thread = Thread.new()
 	# Called every time the node is added to the scene.
 func _ready():
-	# Initialization here
-	
-	#Connects to the server, keeps connection alive.
-	#Gets array of all blocks.
-	#All blocks
-	#Accessing dict to get piece array
-	#push_blocks_to_grid(null)
-	room = requests.create_room()
-	
-	var blocks = requests.get_blocks(room['location'], 5, room['token'])
-	print(blocks)
-	print(room['location'])
-	get_node("../Grid").setup_game()
+	var Connection = preload("res://scripts/Game_Client.gd")
+	db = Connection.new("http://localhost", 8080)
+	print(db.get_room_url())
 
 
 func push_blocks_to_grid(userdata):
-	var info = requests.get_blocks(room['location'], 5, room['token']);
+	var info = db.get_blocks(1);
+
 	print(info)
-	for i in range(info.size()):
-		get_node("../Grid").add_block(parse_shape(info[i]['shape']), info[i]['quote'])
+	print(info.size())
+	if(info == null):
+		get_node("../Grid").block_shapes.push_front({"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]})
+		return []
+	if(info.size() == 0):
+		get_node("../Grid").block_shapes.push_front({"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]})
+	else:
+		for i in range(info.size()):
+			print("for loop")
+			get_node("../Grid").add_block(parse_shape(info[i]['shape']), info[i]['quote'])
 	thread = Thread.new()
 	
 func push_blocks_threaded():

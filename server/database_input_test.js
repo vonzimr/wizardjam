@@ -42,7 +42,11 @@ function send_block(data, room_url){
 }
 
 function create_room_send_data(n){
-    var resp = axios.post(base_url + '/api/room/create')
+    var ax = axios.create({
+        baseURL: base_url,
+        timeout: 1000,
+    });
+    var resp = ax.post(base_url + '/api/room/create')
         .then(function (response) {
             var room_url = response['headers']['location']
             console.log("Posting data to: " + room_url);
@@ -50,11 +54,28 @@ function create_room_send_data(n){
                 send_block(create_data(), room_url);
             }
             console.log("Sent " + n + " items.");
-            console.log(response['data']['token']);
+            var token = response['data']['token'];
+            console.log(token);
         })
         .catch(function (error) {
             console.log(error);
         });
 }
 
+
+function grab_data(n, loc, token){
+    var ax = axios.create({
+        baseURL: base_url,
+        timeout: 1000,
+        headers: {'x-access-token': token}
+    });
+    ax.delete(loc + '/submissions/' + n)
+    .then(function (response) {
+      console.log(response['data']);
+    })
+
+        .catch(function (error) {
+            console.log(error);
+        });
+}
 create_room_send_data(5);

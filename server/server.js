@@ -8,6 +8,7 @@ var config = require('./config');
 
 var jwt = require('jsonwebtoken');
 var morgan = require('morgan');
+var logger = require('morgan-body');
 var token = require('rand-token');
 var isValidMove = require('./middleware/validmove.js');
 
@@ -23,6 +24,7 @@ app.use(bodyParser.json());
 app.use(express.static('assets'))
 
 app.use(morgan('dev'))
+logger(app);
 
 var port = process.env.PORT || 8080;
 
