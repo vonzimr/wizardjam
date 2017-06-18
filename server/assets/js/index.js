@@ -1,7 +1,5 @@
 /*
 TODO
--make buttons click
--change background
 -change borders of input boxes
 */
 
@@ -40,6 +38,7 @@ function validMove(array, error) {
             count++;
         }
     }
+
     if (count > 6) {
         console.log("Too many cells");
         error = error.concat("Too many cells filled (Only input up to 6)\n");
@@ -49,6 +48,7 @@ function validMove(array, error) {
         error = error.concat("Too few cells filled (Need to select at least 2)\n");
         return [false, error];
     }
+
     for (var i = 0; i < 16; i++) {
         var curr = [i%4, Math.floor(i/4)];
         if (array[curr[0]][curr[1]] == 1) {
@@ -98,6 +98,7 @@ function path(array, checked, curr, dest) {
 
 function createRoom() {
     clickAni();
+    
     axios.post("http://localhost:8080/api/room/create")
         .then(function (response) {
             console.log(response);
@@ -115,25 +116,25 @@ function enterSubmit() {
     }
 }
 
-function clickAni() {
-        var start = null;
-        var element = document.getElementById("submit");
+var start = 0;
 
-        function step(timestamp) {
-            if (!start) start = timestamp;
-            var progress = timestamp;
-            element.id = "submitclicked";
-            if (progress < 2000) {
-                element.id = "submit"
-                window.requestAnimationFrame(step);
-            }
-        }
-
+function step(timestamp) {
+    if (start == 0) start = timestamp;
+    if (timestamp-start < 500) {
         window.requestAnimationFrame(step);
+    } else {
+        document.getElementById("submitclicked").id = "submit";
+    }
+}
+
+function clickAni() {
+    document.getElementById("submit").id = "submitclicked";
+    window.requestAnimationFrame(step);
+    start = 0;
 }
 
 function submit() {
-
+    
     clickAni();
 
     var array = [];
@@ -142,8 +143,6 @@ function submit() {
     var name = document.querySelector(".name").value;
     var error = "";
     document.getElementById("error").innerHTML = "";
-    
-    //document.querySelector(".msg").value = "";
 
     var string = "Array: ";
 
@@ -171,7 +170,6 @@ function submit() {
     var move = validMove(twoDA, error);
     var isValid = move[0];
     error = move[1];
-    console.log(error);
 
     if (isValid) {
         var json = {submitted_by: name,
@@ -191,7 +189,6 @@ function submit() {
 
         document.querySelector(".msg").value = "";
     } else {
-        console.log("error");
         document.getElementById("error").innerHTML = error;
     }
 }
