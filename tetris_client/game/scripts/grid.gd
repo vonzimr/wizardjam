@@ -24,14 +24,6 @@ var block_colors = [
 	Color(0.7, 0.7, 0.7)]
 	
 var web_block_shapes = [
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"}
 ]
 
 var block_shapes = [
@@ -142,7 +134,6 @@ func new_piece():
 	if (not piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		# Game over
 		game_over()
-	
 	update()
 
 func test_collapse_rows():
@@ -286,6 +277,7 @@ func setup(w, h):
 	set_size(Vector2(w, h)*block.get_size())
 	new_piece()
 	get_node("timer").start()
+	game_over()
 
 
 

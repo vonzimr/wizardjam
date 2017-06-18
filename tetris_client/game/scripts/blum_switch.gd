@@ -10,10 +10,10 @@ func _ready():
 
 func toggle_bloom(body):
 	set_process_input(true)
-	get_node("../Control/diag_text").show()
+	get_node("../Control 3/diag_text").show()
 
 func exit_bloom(body):
-	get_node("../Control/diag_text").hide()
+	get_node("../Control 3/diag_text").hide()
 	#get_node("../blum").stop()
 	var world = get_node("../WorldEnvironment").get_environment()
 	#world.set_enable_fx(world.FX_GLOW, false)
