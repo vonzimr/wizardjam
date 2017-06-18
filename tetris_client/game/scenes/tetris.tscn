@@ -39,15 +39,15 @@ script/script = ExtResource( 3 )
 
 [node name="preview_1" type="Position2D" parent="."]
 
-transform/pos = Vector2( 542, 90 )
+transform/pos = Vector2( 482, 33 )
 
 [node name="preview_2" type="Position2D" parent="."]
 
-transform/pos = Vector2( 538, 240 )
+transform/pos = Vector2( 481, 184 )
 
 [node name="preview_3" type="Position2D" parent="."]
 
-transform/pos = Vector2( 540, 400 )
+transform/pos = Vector2( 480, 342 )
 
 [node name="Grid" parent="." instance=ExtResource( 4 )]
 
