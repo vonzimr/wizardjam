@@ -98,7 +98,7 @@ script/script = ExtResource( 1 )
 
 [node name="Observer" parent="." instance=ExtResource( 2 )]
 
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.0369877, 2.58901, -2.3762 )
+transform/local = Transform( -0.0313772, 0, 0.999507, 0, 1, 0, -0.999507, 0, -0.0313772, -2.10326, 2.58901, 0.185526 )
 
 [node name="Viewport" type="Viewport" parent="."]
 
@@ -119,32 +119,10 @@ gui/disable_input = false
 
 [node name="Tetris" parent="Viewport" instance=ExtResource( 3 )]
 
-[node name="OmniLight" type="OmniLight" parent="."]
-
-_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.29805, 3.85306, 0 )
-layers = 1
-params/enabled = true
-params/editor_only = false
-params/bake_mode = 0
-params/energy = 1.0
-colors/diffuse = Color( 1, 1, 1, 1 )
-colors/specular = Color( 1, 1, 1, 1 )
-shadow/shadow = false
-shadow/darkening = 0.0
-shadow/z_offset = 0.001
-shadow/z_slope_scale = 0.0
-shadow/esm_multiplier = 60.0
-shadow/blur_passes = 1.0
-projector = null
-operator = 0
-params/radius = 10.0293
-params/attenuation = 1.0
-
 [node name="Area" type="Area" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 0.999981, 0.00529811, -0.00313844, -0.00426021, 0.963226, 0.268659, 0.00444641, -0.268641, 0.96323, -0.0689461, 2.62119, -3.53997 )
+transform/local = Transform( -0.0110308, -0.268634, 0.963179, 0.000843173, 0.963235, 0.268659, -0.999939, 0.00377566, -0.0103988, -3.20549, 2.62119, 0.186502 )
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1

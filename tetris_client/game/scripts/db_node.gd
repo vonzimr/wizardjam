@@ -11,7 +11,6 @@ func _ready():
 
 func push_blocks_to_grid(userdata):
 	var info = db.get_blocks(1);
-
 	print(info)
 	print(info.size())
 	if(info == null):

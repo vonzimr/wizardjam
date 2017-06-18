@@ -143,5 +143,7 @@ func create_room():
 
 func get_blocks(location, count, token):
 	var url = "%s/submissions/%s" % [location, count]
+
 	var resp = server_delete(url, token)
+	print("RESPONSE: ", resp)
 	return json_to_dict(resp)

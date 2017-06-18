@@ -9,7 +9,7 @@ const STATE_MENU = 0
 const STATE_GRAB = 1
 var mov_speed = 5
 #Variable set to seek cats towards you
-var calling = false	
+var calling = false
 
 func direction(vector):
 	#The spacial is like the body. It doesn't rotate and get stuck on the ground.
@@ -47,8 +47,6 @@ func _fixed_process(delta):
 	r_pos.y = 0.0
 	get_viewport().get_mouse_pos()
 
-
-
 func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		r_pos = event.relative_pos
@@ -61,8 +59,6 @@ func _input(event):
 		else:
 			Input.set_mouse_mode(Input.MOUSE_MODE_CAPTURED)
 			state = STATE_GRAB
-
-
 
 func _ready():
 	set_fixed_process(true)

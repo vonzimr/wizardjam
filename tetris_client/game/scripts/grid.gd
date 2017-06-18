@@ -26,6 +26,16 @@ var block_shapes = [
  {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
  {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
  {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
+ {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]},
  {"msg": "Hello", "shape": [Vector2(0, 1), Vector2(1,0)]}
 
 ]
@@ -107,7 +117,6 @@ func piece_check_fit(piece_dic, ofs, er = 0):
 	
 	return true
 
-
 func new_piece():
 	piece_dic = block_shapes.front()
 	block_shapes.pop_front()
@@ -119,7 +128,6 @@ func new_piece():
 		game_over()
 	
 	update()
-
 
 func test_collapse_rows():
 	var accum_down = 0
@@ -142,12 +150,10 @@ func test_collapse_rows():
 	score += accum_down*100
 	score_label.set_text(str(score))
 
-
 func game_over():
 	piece_active = false
 	get_node("gameover").set_text("Game over!")
 	update()
-
 
 func restart_pressed():
 	score = 0
@@ -165,7 +171,6 @@ func display_block(shape):
 
 	return test_pos
 
-	
 func fast_drop():
 	while(piece_check_fit(piece_dic["shape"], Vector2(0, 1 ))):
 		piece_pos.y += 1
@@ -194,11 +199,10 @@ func piece_move_down():
 		if(block_shapes.size() > 0):
 			new_piece()
 			#Check if new blocks were added to the database in a separate thread
-			get_node("../db_node").push_blocks_threaded()
+			get_node("../db_node").push_blocks_to_grid("s;dlfkj:")
 		#IF no shapes are available, make the current shape inactive!
 		else:
 			piece_active = false
-
 
 func piece_rotate():
 	var adv = 1
@@ -206,7 +210,7 @@ func piece_rotate():
 		return
 	piece_rot = (piece_rot + adv) % 4
 	update()
-	
+
 func move_down():
 	if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 		piece_pos.y += 1
