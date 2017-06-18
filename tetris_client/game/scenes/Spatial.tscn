@@ -315,7 +315,6 @@ input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
 shapes/0/trigger = false
 space_override = 0
 gravity_point = false
@@ -354,7 +353,6 @@ stream/buffering_ms = 500
 [node name="CollisionShape" type="CollisionShape" parent="tetris_area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
 shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
@@ -367,7 +365,6 @@ input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 4 )
-shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
 shapes/0/trigger = false
 space_override = 0
 gravity_point = false
@@ -406,7 +403,6 @@ stream/buffering_ms = 500
 [node name="CollisionShape" type="CollisionShape" parent="mimosa_area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
 shape = SubResource( 4 )
 trigger = false
 _update_shape_index = 0
