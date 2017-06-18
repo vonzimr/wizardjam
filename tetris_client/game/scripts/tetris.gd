@@ -9,3 +9,4 @@ func _ready():
 	# Initialization here
 	get_node("Grid").setup_game()
 	
+ 

@@ -260,7 +260,7 @@ transform/pos = Vector2( 268.435, -20.8715 )
 [node name="Label" parent="Control/diag_text"]
 
 visibility/opacity = 1.0
-text = "Press b for blum"
+text = "Press b to toggle blum"
 
 [node name="AnimationPlayer" parent="Control/diag_text"]
 
@@ -389,6 +389,7 @@ input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
 space_override = 0
 gravity_point = false
@@ -439,6 +440,7 @@ input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
 shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
 space_override = 0
 gravity_point = false

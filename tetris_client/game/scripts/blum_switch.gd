@@ -14,10 +14,10 @@ func toggle_bloom(body):
 
 func exit_bloom(body):
 	get_node("../Control/diag_text").hide()
-	get_parent().toggle_bloom()
-	get_node("../blum").stop()
+	#get_node("../blum").stop()
 	var world = get_node("../WorldEnvironment").get_environment()
-	world.set_enable_fx(world.FX_GLOW, false)
+	#world.set_enable_fx(world.FX_GLOW, false)
+	set_process_input(false)
 	
 	
 
