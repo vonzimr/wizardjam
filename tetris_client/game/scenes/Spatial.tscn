@@ -1,17 +1,26 @@
-[gd_scene load_steps=17 format=1]
+[gd_scene load_steps=28 format=1]
 
 [ext_resource path="res://scenes/Spatial.gd" type="Script" id=1]
 [ext_resource path="res://images/white_block.png" type="Texture" id=2]
 [ext_resource path="res://din1451alt.fnt" type="BitmapFont" id=3]
-[ext_resource path="res://images/path8759.png" type="Texture" id=4]
-[ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=5]
-[ext_resource path="res://scenes/tetris.tscn" type="PackedScene" id=6]
-[ext_resource path="res://scenes/arcade.scn" type="PackedScene" id=7]
-[ext_resource path="res://scripts/play_audio.gd" type="Script" id=8]
-[ext_resource path="res://audio/tetris.ogg" type="AudioStream" id=9]
-[ext_resource path="res://audio/mimosas with janet loop at 33_391sec.ogg" type="AudioStream" id=10]
-[ext_resource path="res://audio/butts loop at 14_769sec.ogg" type="AudioStream" id=11]
-[ext_resource path="res://audio/goldbloom.ogg" type="AudioStream" id=12]
+[ext_resource path="res://scenes/diag_text.tscn" type="PackedScene" id=4]
+[ext_resource path="res://images/path8759.png" type="Texture" id=5]
+[ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/tetris.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/arcade.scn" type="PackedScene" id=8]
+[ext_resource path="res://scripts/play_audio.gd" type="Script" id=9]
+[ext_resource path="res://audio/tetris.ogg" type="AudioStream" id=10]
+[ext_resource path="res://audio/mimosas with janet loop at 33_391sec.ogg" type="AudioStream" id=11]
+[ext_resource path="res://audio/butts loop at 14_769sec.ogg" type="AudioStream" id=12]
+[ext_resource path="res://audio/goldbloom.ogg" type="AudioStream" id=13]
+[ext_resource path="res://samples/death.smp" type="Sample" id=14]
+[ext_resource path="res://samples/drop.smp" type="Sample" id=15]
+[ext_resource path="res://samples/line clear.smp" type="Sample" id=16]
+[ext_resource path="res://samples/rotate left.smp" type="Sample" id=17]
+[ext_resource path="res://samples/rotate left option 2.smp" type="Sample" id=18]
+[ext_resource path="res://samples/rotate right.smp" type="Sample" id=19]
+[ext_resource path="res://samples/rotate right option 2.smp" type="Sample" id=20]
+[ext_resource path="res://scripts/blum_switch.gd" type="Script" id=21]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -101,6 +110,55 @@ srgb/enabled = false
 [sub_resource type="BoxShape" id=4]
 
 extents = Vector3( 1.83461, 1, 1.52942 )
+
+[sub_resource type="SampleLibrary" id=5]
+
+samples/death = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 14 )
+}
+samples/drop = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 15 )
+}
+"samples/line clear" = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 16 )
+}
+"samples/rotate left" = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 17 )
+}
+"samples/rotate left option 2" = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 18 )
+}
+"samples/rotate right" = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 19 )
+}
+"samples/rotate right option 2" = {
+"db": 0.0,
+"pitch": 1.0,
+"priority": 0,
+"sample": ExtResource( 20 )
+}
+
+[sub_resource type="BoxShape" id=6]
+
+extents = Vector3( 1.47425, 1, 1 )
 
 [node name="Spatial" type="Spatial"]
 
@@ -192,6 +250,20 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="diag_text" parent="Control" instance=ExtResource( 4 )]
+
+visibility/visible = false
+transform/pos = Vector2( 268.435, -20.8715 )
+
+[node name="Label" parent="Control/diag_text"]
+
+visibility/opacity = 1.0
+text = "Press b for blum"
+
+[node name="AnimationPlayer" parent="Control/diag_text"]
+
+playback/speed = 0.0
+
 [node name="Control 3" type="Control" parent="."]
 
 anchor/left = 3
@@ -221,10 +293,10 @@ margin/left = 0.0
 margin/top = 0.0
 margin/right = 0.0
 margin/bottom = 0.0
-texture = ExtResource( 4 )
+texture = ExtResource( 5 )
 stretch_mode = 0
 
-[node name="Observer" parent="." instance=ExtResource( 5 )]
+[node name="Observer" parent="." instance=ExtResource( 6 )]
 
 transform/local = Transform( -0.0313772, 0, 0.999507, 0, 1, 0, -0.999507, 0, -0.0313772, 9.96278, 2.58901, 0.185526 )
 
@@ -245,7 +317,7 @@ audio_listener/enable_3d = false
 physics/object_picking = false
 gui/disable_input = false
 
-[node name="Tetris" parent="Viewport" instance=ExtResource( 6 )]
+[node name="Tetris" parent="Viewport" instance=ExtResource( 7 )]
 
 [node name="Area" type="Area" parent="."]
 
@@ -305,7 +377,7 @@ _update_shape_index = 0
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 environment = SubResource( 3 )
 
-[node name="arcade" parent="." instance=ExtResource( 7 )]
+[node name="arcade" parent="." instance=ExtResource( 8 )]
 
 [node name="tetris_area" type="Area" parent="."]
 
@@ -328,7 +400,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 8 )
+script/script = ExtResource( 9 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="tetris_area"]
 
@@ -341,7 +413,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 9 )
+stream/stream = ExtResource( 10 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -378,7 +450,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 8 )
+script/script = ExtResource( 9 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="mimosa_area"]
 
@@ -391,7 +463,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 10 )
+stream/stream = ExtResource( 11 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -429,7 +501,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 8 )
+script/script = ExtResource( 9 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="butt_area"]
 
@@ -442,7 +514,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 11 )
+stream/stream = ExtResource( 12 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -461,7 +533,7 @@ _update_shape_index = 0
 
 [node name="blum" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 12 )
+stream/stream = ExtResource( 13 )
 stream/play = false
 stream/loop = false
 stream/volume_db = 0.0
@@ -470,4 +542,50 @@ stream/paused = false
 stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
 
+[node name="SpatialSamplePlayer" type="SpatialSamplePlayer" parent="."]
 
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -3.3435, 2.55951, 0 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 4.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+config/polyphony = 1
+config/samples = SubResource( 5 )
+
+[node name="blum_area" type="Area" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.09308, 1.01067, 4.44277 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 6 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+script/script = ExtResource( 21 )
+
+[node name="CollisionShape" type="CollisionShape" parent="blum_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+shape = SubResource( 6 )
+trigger = false
+_update_shape_index = 0
+
+
+[editable path="Control/diag_text"]
