@@ -118,7 +118,8 @@ func new_piece():
 	print(block_shapes.size())
 	
 	if web_block_shapes.size() == 0:
-		piece_dic = block_shapes.front()
+		randomize()
+		piece_dic = block_shapes[floor(rand_range(0, block_shapes.size()))]
 	else:
 		piece_dic = web_block_shapes.front()
 		web_block_shapes.pop_front()
