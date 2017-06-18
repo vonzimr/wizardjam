@@ -12,7 +12,7 @@ var score_label = null
 const MAX_SHAPES = 7
 
 var block = preload("res://images/block.png")
-
+var previews = []
 var block_colors = [
 	Color(1, 0.5, 0.5),
 	Color(0.5, 1, 0.5, .1),
@@ -34,7 +34,7 @@ var block_shapes = [
 
 
 func add_web_block(block, msg, submitted_by):
-	web_block_shapes.push_front({"msg": msg, "shape": block, "submitted_by": submitted_by})
+	web_block_shapes.push_back({"msg": msg, "shape": block, "submitted_by": submitted_by})
 
 func add_block(block, msg):
 	block_shapes.push_front({"msg": msg, "shape": block})
@@ -64,6 +64,16 @@ func piece_cell_xform(p, piece_pos, piece_rot, er = 0):
 	#r is used as the "rotation index" of the block rotations list
 	return piece_pos + block_rotations[r].xform(p)
 
+func update_previews():
+	if(web_block_shapes.size() > 0):
+		for i in range(min(3, web_block_shapes.size())):
+			previews[i].show()
+			previews[i].preview_block(block, web_block_shapes[i]["shape"], block_colors)
+			previews[i].set_label(web_block_shapes[i]["submitted_by"])
+	
+	if(web_block_shapes.size() < 3):
+		for i in range(web_block_shapes.size(), 3):
+			previews[i].hide()
 
 func _draw():
 	var sb = get_stylebox("bg", "Tree") # Use line edit bg
@@ -83,18 +93,8 @@ func _draw():
 			#Drawing the preview block
 			var max_pos = display_block(piece_dic["shape"])
 			draw_texture_rect(block, Rect2(piece_cell_xform(c, Vector2(piece_pos.x, piece_pos.y + max_pos.y), piece_rot)*bs, bs), false, block_colors[1])
-	if(web_block_shapes.size() > 0):
-		preview_block(get_node("../preview_1").get_pos() / 16, 0)
-	if(web_block_shapes.size() > 1):
-		preview_block(get_node("../preview_2").get_pos() / 16, 1)
-	if(web_block_shapes.size() > 2):
-		preview_block(get_node("../preview_3").get_pos() / 16, 2)
+	update_previews()
 
-func preview_block(offset, index):
-	var bs = block.get_size()
-	for c in web_block_shapes[index]["shape"]:
-		draw_texture_rect(block, Rect2((c+offset)*bs, bs), false, block_colors[0])
-		update()
 
 func piece_check_fit(piece_dic, ofs, er = 0):
 	for c in piece_dic:
@@ -123,6 +123,7 @@ func new_piece():
 	else:
 		piece_dic = web_block_shapes.front()
 		web_block_shapes.pop_front()
+
 
 	piece_pos = Vector2(width/2, 2)
 	piece_active = true
@@ -258,8 +259,17 @@ func setup(w, h):
 	new_piece()
 	get_node("timer").start()
 
+
+
+
 func _ready():
 	score_label = get_node("../score")
+	var preview_scene = load("res://scenes/preview.tscn")
+	for i in range(3):
+		var preview = preview_scene.instance()
+		preview.init(Vector2(450, 150*i))
+		previews.append(preview)
+		add_child(preview)
 
 func setup_game():
 	setup(20, 30)
