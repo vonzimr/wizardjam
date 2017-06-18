@@ -37,23 +37,7 @@ stretch_mode = 0
 transform/pos = Vector2( 0, -50 )
 script/script = ExtResource( 3 )
 
-[node name="preview_1" type="Node2D" parent="." instance=ExtResource( 4 )]
-
-visibility/visible = false
-transform/pos = Vector2( 484.702, 33 )
-script/script = ExtResource( 5 )
-
-[node name="preview_2" type="Position2D" parent="."]
-
-visibility/visible = false
-transform/pos = Vector2( 481, 184 )
-
-[node name="preview_3" type="Position2D" parent="."]
-
-visibility/visible = false
-transform/pos = Vector2( 480, 342 )
-
-[node name="Grid" parent="." instance=ExtResource( 6 )]
+[node name="Grid" parent="." instance=ExtResource( 4 )]
 
 margin/left = 40.0
 margin/top = 35.0
@@ -129,12 +113,13 @@ transform/scale = Vector2( 1, 1 )
 
 margin/left = -178.0
 margin/right = 622.0
+text = "test test test test test test set test test test test test test set test test test test test test set "
 align = 1
 autowrap = true
 
 [node name="Sprite" type="Sprite" parent="."]
 
-texture = ExtResource( 8 )
+texture = ExtResource( 6 )
 
 [connection signal="pressed" from="restart" to="Grid" method="restart_pressed"]
 
