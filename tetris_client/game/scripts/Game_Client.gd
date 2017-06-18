@@ -21,4 +21,9 @@ func get_blocks(n):
 		return json
 
 func get_room_url():
-	return _base_url + room_url
+	return _base_url
+
+func get_room_code():
+	var url = room_url.split("/")
+	return url[-1]
+	url[-1]
