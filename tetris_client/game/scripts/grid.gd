@@ -8,7 +8,7 @@ signal move_con(input)
 # Member variables
 var score = 0
 var score_label = null
-
+var game_over = false
 const MAX_SHAPES = 7
 
 var block = preload("res://images/block.png")
@@ -21,7 +21,17 @@ var block_colors = [
 	Color(0.8, 0.8, 0.4),
 	Color(0.4, 0.8, 0.8),
 	Color(0.7, 0.7, 0.7)]
-var web_block_shapes = []
+	
+var web_block_shapes = [
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"}
+]
 
 var block_shapes = [
 	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ]},
@@ -157,7 +167,9 @@ func test_collapse_rows():
 
 func game_over():
 	piece_active = false
-	get_node("gameover").set_text("Game over!")
+	game_over = true
+	print("Gameover")
+	get_node("gameover").set_text("R to Restart")
 	update()
 
 func restart_pressed():
@@ -182,11 +194,16 @@ func fast_drop():
 		update()
 
 func show_message():
-	var msg = get_node("../dialog_box")
-	msg.get_node("diag_text/Label").set_dialog_text([piece_dic["msg"]])
-	msg.get_node("diag_text/Label").next_dialog()
-	msg.set_pos(Vector2(width/2, height/2)*16)
-	msg.get_node("diag_text/AnimationPlayer").play("fade")
+	var label = get_node("../diag_text/Label")
+	label.set_dialog_text([piece_dic["msg"]])
+	label.next_dialog()
+	print(label.get_size().x * label.get_size().y)
+	var speed = 1
+	if piece_dic["msg"].length() != 0:
+		speed = 1.000 / piece_dic["msg"].length()
+	print(speed)
+	get_node("../diag_text/AnimationPlayer").play("fade", -1, speed + .2 )
+	
 	
 func piece_move_down():
 	if (!piece_active):
@@ -221,6 +238,9 @@ func move_down():
 		update()
 
 func _input(ie):
+	if (ie.is_action("reset") and (game_over == true)):
+		game_over = false
+		restart_pressed()
 	if(ie.is_action("new_block")):
 		#For debugging!
 		block_shapes.push_front({"msg": "Nikoma has the football", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ]})
@@ -251,6 +271,9 @@ func _input(ie):
 	elif (ie.is_action("rotate")):
 		emit_signal("move_con", "button")
 		piece_rotate()
+	
+
+
 
 func setup(w, h):
 	width = w

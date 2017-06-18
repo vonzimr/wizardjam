@@ -4,7 +4,7 @@
 [ext_resource path="res://images/tetris_screen_texture.png" type="Texture" id=2]
 [ext_resource path="res://scripts/db_node.gd" type="Script" id=3]
 [ext_resource path="res://scenes/grid.tscn" type="PackedScene" id=4]
-[ext_resource path="res://scenes/dialogbox.tscn" type="PackedScene" id=5]
+[ext_resource path="res://scenes/diag_text.tscn" type="PackedScene" id=5]
 [ext_resource path="res://images/block.png" type="Texture" id=6]
 
 [node name="Tetris" type="Panel"]
@@ -104,7 +104,18 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
-[node name="dialog_box" parent="." instance=ExtResource( 5 )]
+[node name="diag_text" parent="." instance=ExtResource( 5 )]
+
+transform/pos = Vector2( 0, 0 )
+transform/scale = Vector2( 1, 1 )
+
+[node name="Label" parent="diag_text"]
+
+margin/left = -178.0
+margin/right = 622.0
+text = ""
+align = 1
+autowrap = true
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -113,5 +124,4 @@ texture = ExtResource( 6 )
 [connection signal="pressed" from="restart" to="Grid" method="restart_pressed"]
 
 
-[editable path="dialog_box"]
-[editable path="dialog_box/diag_text"]
+[editable path="diag_text"]

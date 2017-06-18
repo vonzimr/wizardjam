@@ -9,14 +9,15 @@ script/script = ExtResource( 1 )
 
 [node name="diag_text" parent="." instance=ExtResource( 2 )]
 
-transform/pos = Vector2( 0, 0 )
 transform/scale = Vector2( 1, 1 )
 
 [node name="Label" parent="diag_text"]
 
-margin/left = 0.0
-margin/right = 10.0
-margin/bottom = 1.0
+visibility/opacity = 1.0
+margin/right = 800.0
+text = ""
+align = 1
+autowrap = true
 
 
 [editable path="diag_text"]

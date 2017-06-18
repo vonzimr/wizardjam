@@ -13,6 +13,9 @@ func _ready():
 	get_node("Area").connect("input_event", self, "_on_area_input_event")
 	get_node("Viewport/Tetris/Grid").connect("move_con", self, "_move_con")
 	get_node("arcade/blum_button/col").connect("input_event", self, "_switch_bloom")
+	var db_node = get_node("Viewport/Tetris/db_node")
+	var room_string = "Visit %s with the room code %s to submit blocks!" % [ db_node.db.get_room_url(), db_node.db.get_room_code()]
+	get_node("Control/Label").set_text(room_string)
 	
 func _switch_bloom(camera, event, click_pos, click_normal, shape_idx):
 	
