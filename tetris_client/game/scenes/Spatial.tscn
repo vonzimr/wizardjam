@@ -127,9 +127,23 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 1.0
-margin/top = 560.0
+margin/top = 548.0
 margin/right = 421.0
-margin/bottom = 605.0
+margin/bottom = 593.0
+texture = ExtResource( 2 )
+modulate = Color( 0, 0, 0, 1 )
+stretch_mode = 0
+
+[node name="TextureFrame2" type="TextureFrame" parent="Control"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 1.0
+margin/top = 562.0
+margin/right = 421.0
+margin/bottom = 607.0
 texture = ExtResource( 2 )
 modulate = Color( 0, 0, 0, 1 )
 stretch_mode = 0
@@ -141,9 +155,23 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 387.0
-margin/top = 560.0
+margin/top = 558.0
 margin/right = 807.0
-margin/bottom = 605.0
+margin/bottom = 603.0
+texture = ExtResource( 2 )
+modulate = Color( 0, 0, 0, 1 )
+stretch_mode = 0
+
+[node name="TextureFrame2 2" type="TextureFrame" parent="Control"]
+
+focus/ignore_mouse = true
+focus/stop_mouse = true
+size_flags/horizontal = 2
+size_flags/vertical = 2
+margin/left = 387.0
+margin/top = 548.0
+margin/right = 807.0
+margin/bottom = 593.0
 texture = ExtResource( 2 )
 modulate = Color( 0, 0, 0, 1 )
 stretch_mode = 0
@@ -155,9 +183,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
 margin/left = 5.0
-margin/top = 573.0
+margin/top = 555.0
 margin/right = 184.0
-margin/bottom = 609.0
+margin/bottom = 591.0
 custom_fonts/font = ExtResource( 3 )
 text = "room code: "
 percent_visible = 1.0
