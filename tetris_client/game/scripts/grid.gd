@@ -21,7 +21,17 @@ var block_colors = [
 	Color(0.8, 0.8, 0.4),
 	Color(0.4, 0.8, 0.8),
 	Color(0.7, 0.7, 0.7)]
-var web_block_shapes = []
+	
+var web_block_shapes = [
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"}
+]
 
 var block_shapes = [
 	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ]},
@@ -181,11 +191,16 @@ func fast_drop():
 		update()
 
 func show_message():
-	var msg = get_node("../dialog_box")
-	msg.get_node("diag_text/Label").set_dialog_text([piece_dic["msg"]])
-	msg.get_node("diag_text/Label").next_dialog()
-	msg.set_pos(Vector2(width/2, height/2)*16)
-	msg.get_node("diag_text/AnimationPlayer").play("fade")
+	var label = get_node("../diag_text/Label")
+	label.set_dialog_text([piece_dic["msg"]])
+	label.next_dialog()
+	print(label.get_size().x * label.get_size().y)
+	var speed = 1
+	if piece_dic["msg"].length() != 0:
+		speed = 1.000 / piece_dic["msg"].length()
+	print(speed)
+	get_node("../diag_text/AnimationPlayer").play("fade", -1, speed + .2 )
+	
 	
 func piece_move_down():
 	if (!piece_active):

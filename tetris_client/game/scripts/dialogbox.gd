@@ -11,7 +11,7 @@ var size = Vector2(200, 75)
 
 func init(dialog_text_array):
 	get_node("diag_text/Label").set_dialog_text(dialog_text_array)
-	resize_box()
+#	resize_box()
 
 func draw_circle_arc(center, radius, angle_from, angle_to, color):
 	var nb_points = 32
