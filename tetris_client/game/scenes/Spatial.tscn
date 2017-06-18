@@ -1,10 +1,14 @@
-[gd_scene load_steps=9 format=1]
+[gd_scene load_steps=14 format=1]
 
 [ext_resource path="res://scenes/Spatial.gd" type="Script" id=1]
 [ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=2]
 [ext_resource path="res://scenes/tetris.tscn" type="PackedScene" id=3]
 [ext_resource path="res://scenes/arcade.scn" type="PackedScene" id=4]
-[ext_resource path="res://audio/tetris loop at 12_8sec.ogg" type="AudioStream" id=5]
+[ext_resource path="res://scripts/play_audio.gd" type="Script" id=5]
+[ext_resource path="res://audio/tetris.ogg" type="AudioStream" id=6]
+[ext_resource path="res://audio/mimosas with janet loop at 33_391sec.ogg" type="AudioStream" id=7]
+[ext_resource path="res://audio/butts loop at 14_769sec.ogg" type="AudioStream" id=8]
+[ext_resource path="res://audio/goldbloom.ogg" type="AudioStream" id=9]
 
 [sub_resource type="BoxShape" id=1]
 
@@ -50,7 +54,7 @@ textures/shade_param_tc = 0
 [sub_resource type="Environment" id=3]
 
 ambient_light/enabled = true
-ambient_light/color = Color( 1, 1, 1, 1 )
+ambient_light/color = Color( 0.942759, 0.949219, 0.12236, 1 )
 ambient_light/energy = 0.06
 fxaa/enabled = true
 background/mode = 1
@@ -61,11 +65,11 @@ background/glow = 0.0
 background/canvas_max_layer = null
 glow/enabled = false
 glow/blur_passes = 2
-glow/blur_scale = 0.89
-glow/blur_strength = 2.82
+glow/blur_scale = 0.92
+glow/blur_strength = 2.72
 glow/blur_blend_mode = 1
-glow/bloom = 0.02
-glow/bloom_treshold = 0.5
+glow/bloom = 0.1
+glow/bloom_treshold = 0.66
 dof_blur/enabled = true
 dof_blur/blur_passes = 1
 dof_blur/begin = 100.0
@@ -91,6 +95,10 @@ bcs/contrast = 1.0
 bcs/saturation = 1.0
 srgb/enabled = false
 
+[sub_resource type="BoxShape" id=4]
+
+extents = Vector3( 1.83461, 1, 1.52942 )
+
 [node name="Spatial" type="Spatial"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
@@ -98,7 +106,7 @@ script/script = ExtResource( 1 )
 
 [node name="Observer" parent="." instance=ExtResource( 2 )]
 
-transform/local = Transform( -0.0313772, 0, 0.999507, 0, 1, 0, -0.999507, 0, -0.0313772, -2.10326, 2.58901, 0.185526 )
+transform/local = Transform( -0.0313772, 0, 0.999507, 0, 1, 0, -0.999507, 0, -0.0313772, 9.96278, 2.58901, 0.185526 )
 
 [node name="Viewport" type="Viewport" parent="."]
 
@@ -179,24 +187,171 @@ environment = SubResource( 3 )
 
 [node name="arcade" parent="." instance=ExtResource( 4 )]
 
-[node name="SpatialStreamPlayer" type="SpatialStreamPlayer" parent="."]
+[node name="tetris_area" type="Area" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.050657, 2.33213, -3.80945 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.99181, 2.51851, 0.341438 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+script/script = ExtResource( 5 )
+
+[node name="audio" type="SpatialStreamPlayer" parent="tetris_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.11439, 0, 0 )
 params/volume_db = 0.0
 params/pitch_scale = 1.0
 params/attenuation/min_distance = 1.0
-params/attenuation/max_distance = 100.0
+params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 5 )
-stream/play = true
+stream/stream = ExtResource( 6 )
+stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
-stream/autoplay = true
+stream/autoplay = false
 stream/paused = false
 stream/loop_restart_time = 12.0
+stream/buffering_ms = 500
+
+[node name="CollisionShape" type="CollisionShape" parent="tetris_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="mimosa_area" type="Area" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16735, 2.53794, -2.73865 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+script/script = ExtResource( 5 )
+
+[node name="audio" type="SpatialStreamPlayer" parent="mimosa_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.379902, -0.311665, -0.970181 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 3.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+stream/stream = ExtResource( 7 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 33.0
+stream/buffering_ms = 500
+
+[node name="CollisionShape" type="CollisionShape" parent="mimosa_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="butt_area" type="Area" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 3.9796, 2.55797, -2.5781 )
+input/ray_pickable = false
+input/capture_on_drag = false
+shape_count = 1
+shapes/0/shape = SubResource( 4 )
+shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
+shapes/0/trigger = false
+space_override = 0
+gravity_point = false
+gravity_distance_scale = 0.0
+gravity_vec = Vector3( 0, -1, 0 )
+gravity = 9.8
+linear_damp = 0.1
+angular_damp = 1.0
+priority = 0.0
+monitoring = true
+monitorable = true
+collision/layers = 1
+collision/mask = 1
+script/script = ExtResource( 5 )
+
+[node name="audio" type="SpatialStreamPlayer" parent="butt_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -0.174832, -0.484179, -0.985726 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 3.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+stream/stream = ExtResource( 8 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 13.0
+stream/buffering_ms = 500
+
+[node name="CollisionShape" type="CollisionShape" parent="butt_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
+shape = SubResource( 4 )
+trigger = false
+_update_shape_index = 0
+
+[node name="blum" type="StreamPlayer" parent="."]
+
+stream/stream = ExtResource( 9 )
+stream/play = false
+stream/loop = false
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 0.0
 stream/buffering_ms = 500
 
 

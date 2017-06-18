@@ -231,18 +231,18 @@ func _input(ie):
 	if (ie.is_action("move_left")):
 		if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
 			piece_pos.x -= 1
-			emit_signal("move_con", "left")
+			emit_signal("move_con", "stick_left")
 			update()
 	elif (ie.is_action("move_right")):
 		if (piece_check_fit(piece_dic["shape"], Vector2(1, 0))):
 			piece_pos.x += 1
-			emit_signal("move_con", "right")
+			emit_signal("move_con", "stick_right")
 			update()
 	elif (ie.is_action("move_up")):
-		emit_signal("move_con", "up")
+		emit_signal("move_con", "stick_up")
 		fast_drop()
 	elif (ie.is_action("move_down")):
-		emit_signal("move_con", "down")
+		emit_signal("move_con", "stick_down")
 		if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 			piece_pos.y += 1
 			update()

@@ -1,5 +1,5 @@
 
-extends Spatial
+extends RigidBody
 
 # Member variables
 var r_pos = Vector2()
@@ -34,7 +34,21 @@ func _fixed_process(delta):
 	var cam = get_global_transform()
 	var org = get_translation()
 	
+	#Direction orients the vector 
+	if (Input.is_action_pressed("obs_forward")):
+		dir += direction(Vector3(0, 0, -mov_speed))
+	if (Input.is_action_pressed("obs_down")):
+		dir += direction(Vector3(0, 0, mov_speed))
+	if (Input.is_action_pressed("obs_left")):
+		dir += direction(Vector3(-mov_speed, 0, 0))
+	if (Input.is_action_pressed("obs_right")):
+		dir += direction(Vector3(mov_speed, 0, 0))
+	if(get_colliding_bodies().size() == 0):
+		set_linear_velocity(get_linear_velocity())
+	else:
+		set_linear_velocity(dir*mov_speed)
 	var d = delta*0.1
+	
 	
 	var yaw = get_transform().rotated(Vector3(0, 1, 0), d*r_pos.x)
 	set_transform(yaw)
@@ -50,8 +64,6 @@ func _fixed_process(delta):
 func _input(event):
 	if(event.type == InputEvent.MOUSE_MOTION):
 		r_pos = event.relative_pos
-	if(event.is_action_pressed("exit_game")):
-		get_parent().save_game()
 	if(impulse(event, "ui_cancel")):
 		if(state == STATE_GRAB):
 			Input.set_mouse_mode(Input.MOUSE_MODE_VISIBLE)
