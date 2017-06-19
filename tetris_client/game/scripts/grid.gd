@@ -2,6 +2,7 @@
 extends Control
 signal move_con(input)
 signal play_sample(samp_name)
+signal switch_music(mode)
 # Simple Tetris-like demo, (c) 2012 Juan Linietsky
 # Implemented by using a regular Control and drawing on it during the _draw() callback.
 # The drawing surface is updated only when changes happen (by calling update())
@@ -9,8 +10,72 @@ signal play_sample(samp_name)
 # Member variables
 var score = 0
 var score_label = null
-var game_over = false
+var gameover_timer
 const MAX_SHAPES = 7
+var timer
+var logo
+
+var gameover_label
+var attract_label
+
+#GAME STATES
+var cur_state
+enum STATE{
+	ATTRACT,
+	INGAME,
+	GAMEOVER
+
+}
+
+
+func set_state(state):
+	cur_state = state
+
+func get_state(state):
+	return cur_state
+
+
+func attract_state():
+	attract_label.show()
+	gameover_label.hide()
+	piece_active = false
+	cells.clear()
+	cur_state = ATTRACT
+	timer.set_wait_time(.0125)
+	timer.start()
+	logo.show()
+	emit_signal("switch_music", "attract")
+	drop_random_piece()
+
+func ingame_state():
+	logo.hide()
+	attract_label.hide()
+	gameover_label.hide()
+	timer.set_wait_time(1.5)
+	timer.start()
+	score = 0
+	score_label.set_text("0")
+	cells.clear()
+	emit_signal("switch_music", "in-game")
+	get_parent().get_node("attract_label").hide()
+	piece_active = true
+	get_node("../restart").release_focus()
+	update()
+	cur_state = INGAME
+
+	new_piece()
+
+func game_over_state():
+	attract_label.hide()
+	logo.show()
+	gameover_timer.start()
+	gameover_label.show()
+	cur_state = GAMEOVER
+	piece_active = true
+	emit_signal("play_sample", "death")
+	emit_signal("switch_music", "attract")
+	update()
+
 
 var block = preload("res://images/block.png")
 var previews = []
@@ -98,6 +163,8 @@ func _draw():
 			draw_texture_rect(block, Rect2(piece_cell_xform(c, Vector2(piece_pos.x, piece_pos.y + max_pos.y), piece_rot)*bs, bs), false, block_colors[1])
 	update_previews()
 
+	
+
 
 func piece_check_fit(piece_dic, ofs, er = 0):
 	for c in piece_dic:
@@ -115,11 +182,20 @@ func piece_check_fit(piece_dic, ofs, er = 0):
 			return false
 	
 	return true
+	
+
+func drop_random_piece():
+	randomize()
+	piece_dic = block_shapes[floor(rand_range(0, block_shapes.size()))]
+	randomize()
+	piece_pos = Vector2(round(rand_range(1, width-2)), 2)
+	piece_active = true
+	piece_rot = 0
+	if (not piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
+		cells.clear()
+	update()
 
 func new_piece():
-
-	print(block_shapes.size())
-	
 	if web_block_shapes.size() == 0:
 		randomize()
 		piece_dic = block_shapes[floor(rand_range(0, block_shapes.size()))]
@@ -132,8 +208,7 @@ func new_piece():
 	piece_active = true
 	piece_rot = 0
 	if (not piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
-		# Game over
-		game_over()
+		game_over_state()
 	update()
 
 func test_collapse_rows():
@@ -158,21 +233,6 @@ func test_collapse_rows():
 	score += accum_down*100
 	score_label.set_text(str(score))
 
-func game_over():
-	piece_active = false
-	game_over = true
-	get_node("gameover").set_text("R to Restart")
-	emit_signal("play_sample", "death")
-	update()
-
-func restart_pressed():
-	score = 0
-	score_label.set_text("0")
-	cells.clear()
-	get_node("gameover").set_text("")
-	piece_active = true
-	get_node("../restart").release_focus()
-	update()
 
 func display_block(shape):
 	var test_pos = Vector2(piece_pos.x, 0)
@@ -190,16 +250,14 @@ func fast_drop():
 		piece_move_down()
 			
 
-func show_message():
+func show_message(msg):
 	var label = get_node("../diag_text/Label")
-	label.set_dialog_text([piece_dic["msg"]])
-	label.next_dialog()
-	print(label.get_size().x * label.get_size().y)
+	label.set_dialog_text([msg])
 	var speed = 1
 	if piece_dic["msg"].length() != 0:
 		speed = 1.000 / piece_dic["msg"].length()
-	print(speed)
 	get_node("../diag_text/AnimationPlayer").play("fade", -1, speed + .2 )
+
 	
 	
 func piece_move_down():
@@ -214,9 +272,12 @@ func piece_move_down():
 			var pos = piece_cell_xform(c, piece_pos, piece_rot)
 			cells[pos] = piece_dic["shape"]
 		test_collapse_rows()
-		show_message()
+		show_message(piece_dic["msg"])
 		if(block_shapes.size() > 0):
-			new_piece()
+			if cur_state == INGAME:
+				new_piece()
+			if cur_state == ATTRACT:
+				drop_random_piece()
 			#Check if new blocks were added to the database in a separate thread
 		#IF no shapes are available, make the current shape inactive!
 		else:
@@ -235,55 +296,57 @@ func move_down():
 		piece_pos.y += 1
 		update()
 
-func _input(ie):
-	if (ie.is_action("reset") and (game_over == true)):
-		game_over = false
-		restart_pressed()
-	if(ie.is_action("new_block")):
-		#For debugging!
-		block_shapes.push_front({"msg": "Nikoma has the football", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2), Vector2(0, 3) ]})
-		piece_active = true
-	if (not piece_active):
-		return
-	if (!ie.is_pressed()):
-		return
+func attract_input(ie):
+	if (ie.is_action("reset")):
+		cur_state = INGAME
+		ingame_state()
 
-	if (ie.is_action("move_left")):
+func gameover_input(ie):
+	if (ie.is_action("reset")):
+		ingame_state()
+
+func ingame_input(ie):
+	if (ie.is_action("move_left") and ie.is_pressed()):
 		if (piece_check_fit(piece_dic["shape"], Vector2(-1, 0))):
 			piece_pos.x -= 1
 			emit_signal("move_con", "stick_left")
 			update()
-	elif (ie.is_action("move_right")):
+	elif (ie.is_action("move_right") and ie.is_pressed()):
 		if (piece_check_fit(piece_dic["shape"], Vector2(1, 0))):
 			piece_pos.x += 1
 			emit_signal("move_con", "stick_right")
 			update()
-	elif (ie.is_action("move_up")):
+	elif (ie.is_action_pressed("move_up")):
 		emit_signal("move_con", "stick_up")
 		fast_drop()
-	elif (ie.is_action("move_down")):
+	elif (ie.is_action("move_down")  and ie.is_pressed()):
 		emit_signal("move_con", "stick_down")
 		if (piece_check_fit(piece_dic["shape"], Vector2(0, 1))):
 			piece_pos.y += 1
 			update()
-	elif (ie.is_action("rotate")):
+	elif (ie.is_action_pressed("rotate")):
 		emit_signal("move_con", "button")
-		piece_rotate()
-	
+		piece_rotate()	
+
+func _input(ie):
+	if cur_state == ATTRACT:
+		attract_input(ie)
+	elif cur_state == INGAME:
+		ingame_input(ie)
+	elif cur_state == GAMEOVER:
+		gameover_input(ie)
+
+
 
 func setup(w, h):
 	width = w
 	height = h
 	set_size(Vector2(w, h)*block.get_size())
-	new_piece()
-	get_node("timer").start()
-	game_over()
+	attract_state()
 
 
 
-
-func _ready():
-	score_label = get_node("../score")
+func create_preview_windows():
 	var preview_scene = load("res://scenes/preview.tscn")
 	for i in range(3):
 		var preview = preview_scene.instance()
@@ -291,9 +354,33 @@ func _ready():
 		previews.append(preview)
 		add_child(preview)
 
+
+func _ready():
+	gameover_timer = get_node("overtimer")
+	timer = get_node("timer")
+	logo = get_node("logo").get_node("Label")
+	score_label = get_node("../score")
+	gameover_label = get_parent().get_node("gameover_label")
+	attract_label = get_parent().get_node("attract_label")
+	create_preview_windows()
+	cur_state = ATTRACT
+	setup_game()
+	set_process(true)
+
+
+
 func setup_game():
 	setup(20, 30)
 	set_process_input(true)
 	
 
-	
+
+func _process(delta):
+	if(cur_state == GAMEOVER):
+		gameover_label.show()
+		var time = gameover_timer.get_time_left()
+		print(time)
+		gameover_label.set_text("Insert More Coins\n(Tap R More)\nTime Remaining: "  + str(floor(time)))
+		if(time == 0):
+			gameover_label.hide()
+			attract_state()

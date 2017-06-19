@@ -52,11 +52,14 @@ func _fixed_process(delta):
 	
 	
 	var yaw = get_transform().rotated(Vector3(0, 1, 0), d*r_pos.x)
+
 	set_transform(yaw)
 	
 	var cam = get_node("Spatial/Camera")
+	
 	var pitch = cam.get_transform().rotated(Vector3(1, 0, 0), d*r_pos.y)
-	cam.set_transform(pitch)
+	if(pitch.basis[2][2] > 0):
+		cam.set_transform(pitch)
 	
 	r_pos.x = 0.0
 	r_pos.y = 0.0

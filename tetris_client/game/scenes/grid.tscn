@@ -1,7 +1,7 @@
 [gd_scene load_steps=3 format=1]
 
 [ext_resource path="res://scripts/grid.gd" type="Script" id=1]
-[ext_resource path="res://128.fnt" type="BitmapFont" id=2]
+[ext_resource path="res://scenes/logo.tscn" type="PackedScene" id=2]
 
 [node name="Grid" type="Control"]
 
@@ -22,28 +22,16 @@ wait_time = 1.0
 one_shot = false
 autostart = false
 
-[node name="gameover" type="Label" parent="."]
+[node name="overtimer" type="Timer" parent="."]
 
-anchor/right = 1
-anchor/bottom = 1
-focus/ignore_mouse = true
-focus/stop_mouse = true
-size_flags/horizontal = 2
-size_flags/vertical = 0
-margin/left = 0.0
-margin/top = 0.0
-margin/right = 0.0
-margin/bottom = 0.0
-custom_fonts/font = ExtResource( 2 )
-custom_colors/font_color = Color( 1, 1, 1, 1 )
-custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
-custom_constants/shadow_offset_x = 1
-custom_constants/shadow_offset_y = 1
-align = 1
-valign = 1
-percent_visible = 1.0
-lines_skipped = 0
-max_lines_visible = -1
+process_mode = 1
+wait_time = 15.0
+one_shot = true
+autostart = false
+
+[node name="logo" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 82.9886, -176.994 )
 
 [connection signal="timeout" from="timer" to="." method="piece_move_down"]
 
