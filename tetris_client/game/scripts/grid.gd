@@ -167,6 +167,8 @@ func game_over():
 	emit_signal("switch_music", "attract")
 	update()
 
+
+
 func restart_pressed():
 	score = 0
 	score_label.set_text("0")
@@ -193,16 +195,16 @@ func fast_drop():
 		piece_move_down()
 			
 
-func show_message():
+func show_message(msg):
 	var label = get_node("../diag_text/Label")
-	label.set_dialog_text([piece_dic["msg"]])
-	label.next_dialog()
+	label.set_dialog_text([msg])
 	print(label.get_size().x * label.get_size().y)
 	var speed = 1
 	if piece_dic["msg"].length() != 0:
 		speed = 1.000 / piece_dic["msg"].length()
 	print(speed)
 	get_node("../diag_text/AnimationPlayer").play("fade", -1, speed + .2 )
+
 	
 	
 func piece_move_down():
@@ -217,7 +219,7 @@ func piece_move_down():
 			var pos = piece_cell_xform(c, piece_pos, piece_rot)
 			cells[pos] = piece_dic["shape"]
 		test_collapse_rows()
-		show_message()
+		show_message(piece_dic["msg"])
 		if(block_shapes.size() > 0):
 			new_piece()
 			#Check if new blocks were added to the database in a separate thread
