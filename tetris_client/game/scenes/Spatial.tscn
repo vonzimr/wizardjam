@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=1]
+[gd_scene load_steps=34 format=1]
 
 [ext_resource path="res://scenes/Spatial.gd" type="Script" id=1]
 [ext_resource path="res://images/white_block.png" type="Texture" id=2]
@@ -9,22 +9,24 @@
 [ext_resource path="res://scenes/observer.tscn" type="PackedScene" id=7]
 [ext_resource path="res://scenes/tetris.tscn" type="PackedScene" id=8]
 [ext_resource path="res://scenes/arcade.scn" type="PackedScene" id=9]
-[ext_resource path="res://scripts/play_audio.gd" type="Script" id=10]
+[ext_resource path="res://scripts/tetris_audio.gd" type="Script" id=10]
 [ext_resource path="res://audio/tetris.ogg" type="AudioStream" id=11]
-[ext_resource path="res://audio/mimosas with janet loop at 33_391sec.ogg" type="AudioStream" id=12]
-[ext_resource path="res://audio/butts loop at 14_769sec.ogg" type="AudioStream" id=13]
-[ext_resource path="res://audio/manic pixie dream ghoul.ogg" type="AudioStream" id=14]
-[ext_resource path="res://audio/goldbloom.ogg" type="AudioStream" id=15]
-[ext_resource path="res://samples/death.smp" type="Sample" id=16]
-[ext_resource path="res://samples/drop.smp" type="Sample" id=17]
-[ext_resource path="res://samples/line clear.smp" type="Sample" id=18]
-[ext_resource path="res://samples/rotate left.smp" type="Sample" id=19]
-[ext_resource path="res://samples/rotate left option 2.smp" type="Sample" id=20]
-[ext_resource path="res://samples/rotate right.smp" type="Sample" id=21]
-[ext_resource path="res://samples/rotate right option 2.smp" type="Sample" id=22]
-[ext_resource path="res://scripts/blum_switch.gd" type="Script" id=23]
+[ext_resource path="res://audio/rad crate attract loop at 24sec.ogg" type="AudioStream" id=12]
+[ext_resource path="res://scripts/play_audio.gd" type="Script" id=13]
+[ext_resource path="res://audio/mimosas with janet loop at 33_391sec.ogg" type="AudioStream" id=14]
+[ext_resource path="res://audio/butts loop at 14_769sec.ogg" type="AudioStream" id=15]
+[ext_resource path="res://audio/manic pixie dream ghoul.ogg" type="AudioStream" id=16]
+[ext_resource path="res://audio/goldbloom.ogg" type="AudioStream" id=17]
+[ext_resource path="res://samples/death.smp" type="Sample" id=18]
+[ext_resource path="res://samples/drop.smp" type="Sample" id=19]
+[ext_resource path="res://samples/line clear.smp" type="Sample" id=20]
+[ext_resource path="res://samples/rotate left.smp" type="Sample" id=21]
+[ext_resource path="res://samples/rotate left option 2.smp" type="Sample" id=22]
+[ext_resource path="res://samples/rotate right.smp" type="Sample" id=23]
+[ext_resource path="res://samples/rotate right option 2.smp" type="Sample" id=24]
+[ext_resource path="res://scripts/blum_switch.gd" type="Script" id=25]
 
-[sub_resource type="CanvasItemShaderGraph" id=11]
+[sub_resource type="CanvasItemShaderGraph" id=1]
 
 _code = {
 "fragment": "uniform vec3 Color=vec3(0.025,0.5,0);
@@ -41,17 +43,17 @@ _data = {
 "shaders": [ [ 0, 33, Vector2( 565, 26 ), null, null, [  ], 1, 0, Vector2( 20, 94 ), null, null, [  ] ], [ 0, 33, Vector2( 545, 57 ), null, null, [ 0, 3, 0 ], 1, 0, Vector2( 53, 58 ), null, null, [  ], 3, 27, Vector2( 297, 3 ), "Color", Vector3( 0.025, 0.5, 0 ), [  ] ], [ 0, 33, Vector2( 350, 40 ), null, null, [  ], 1, 0, Vector2( 50, 40 ), null, null, [  ] ] ]
 }
 
-[sub_resource type="CanvasItemMaterial" id=12]
+[sub_resource type="CanvasItemMaterial" id=2]
 
-shader/shader = SubResource( 11 )
+shader/shader = SubResource( 1 )
 shader/shading_mode = 0
 shader_param/Color = Vector3( 0.025, 0.5, 0 )
 
-[sub_resource type="BoxShape" id=6]
+[sub_resource type="BoxShape" id=3]
 
 extents = Vector3( 0.49973, 0.501223, 0.0563728 )
 
-[sub_resource type="FixedMaterial" id=7]
+[sub_resource type="FixedMaterial" id=4]
 
 flags/visible = true
 flags/double_sided = false
@@ -88,7 +90,7 @@ textures/glow_tc = 0
 textures/normal_tc = 0
 textures/shade_param_tc = 0
 
-[sub_resource type="Environment" id=8]
+[sub_resource type="Environment" id=5]
 
 ambient_light/enabled = true
 ambient_light/color = Color( 0.942759, 0.949219, 0.12236, 1 )
@@ -132,56 +134,56 @@ bcs/contrast = 1.0
 bcs/saturation = 1.0
 srgb/enabled = false
 
-[sub_resource type="BoxShape" id=9]
+[sub_resource type="BoxShape" id=6]
 
 extents = Vector3( 1.9785, 1, 1.52942 )
 
-[sub_resource type="SampleLibrary" id=5]
+[sub_resource type="SampleLibrary" id=7]
 
 samples/death = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 16 )
+"sample": ExtResource( 18 )
 }
 samples/drop = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 17 )
+"sample": ExtResource( 19 )
 }
 "samples/line clear" = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 18 )
+"sample": ExtResource( 20 )
 }
 "samples/rotate left" = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 19 )
+"sample": ExtResource( 21 )
 }
 "samples/rotate left option 2" = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 20 )
+"sample": ExtResource( 22 )
 }
 "samples/rotate right" = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 21 )
+"sample": ExtResource( 23 )
 }
 "samples/rotate right option 2" = {
 "db": 0.0,
 "pitch": 1.0,
 "priority": 0,
-"sample": ExtResource( 22 )
+"sample": ExtResource( 24 )
 }
 
-[sub_resource type="BoxShape" id=10]
+[sub_resource type="BoxShape" id=8]
 
 extents = Vector3( 1.47425, 1, 1 )
 
@@ -293,7 +295,7 @@ margin/bottom = -294.0
 [node name="diag_text" type="Label" parent="Control 3"]
 
 visibility/visible = false
-material/material = SubResource( 12 )
+material/material = SubResource( 2 )
 anchor/left = 3
 anchor/top = 3
 anchor/right = 3
@@ -369,7 +371,7 @@ transform/local = Transform( -0.0110308, -0.268634, 0.963179, 0.000843173, 0.963
 input/ray_pickable = true
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 6 )
+shapes/0/shape = SubResource( 3 )
 shapes/0/transform = Transform( 1, 0, -0.000959963, 0, 1, 0, 0.000959963, 0, 1, 0.00223359, 0.000336409, -0.0525971 )
 shapes/0/trigger = false
 space_override = 0
@@ -390,7 +392,7 @@ collision/mask = 1
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 layers = 1
 geometry/visible = true
-geometry/material_override = SubResource( 7 )
+geometry/material_override = SubResource( 4 )
 geometry/cast_shadow = 1
 geometry/receive_shadows = true
 geometry/range_begin = 0.0
@@ -411,14 +413,14 @@ quad/centered = true
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, -0.000959963, 0, 1, 0, 0.000959963, 0, 1, 0.00223359, 0.000336409, -0.0525971 )
-shape = SubResource( 6 )
+shape = SubResource( 3 )
 trigger = false
 _update_shape_index = 0
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-environment = SubResource( 8 )
+environment = SubResource( 5 )
 
 [node name="arcade" parent="." instance=ExtResource( 9 )]
 
@@ -429,7 +431,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -1.99181, 0.997923, 0.34
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
 space_override = 0
@@ -466,10 +468,29 @@ stream/paused = false
 stream/loop_restart_time = 12.0
 stream/buffering_ms = 500
 
+[node name="attract" type="SpatialStreamPlayer" parent="tetris_area"]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+params/volume_db = 0.0
+params/pitch_scale = 1.0
+params/attenuation/min_distance = 1.0
+params/attenuation/max_distance = 100.0
+params/attenuation/distance_exp = 1.0
+params/emission_cone/degrees = 180.0
+params/emission_cone/attenuation_db = -6.0
+stream/stream = ExtResource( 12 )
+stream/play = false
+stream/loop = true
+stream/volume_db = 0.0
+stream/autoplay = false
+stream/paused = false
+stream/loop_restart_time = 24.0
+stream/buffering_ms = 500
+
 [node name="CollisionShape" type="CollisionShape" parent="tetris_area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
@@ -480,7 +501,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.16735, 2.53794, -2.73
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5876, 0 )
 shapes/0/trigger = false
 space_override = 0
@@ -495,7 +516,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 10 )
+script/script = ExtResource( 13 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="mimosa_area"]
 
@@ -508,7 +529,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 12 )
+stream/stream = ExtResource( 14 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -521,7 +542,7 @@ stream/buffering_ms = 500
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.5876, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
@@ -532,7 +553,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 5.76416, 2.55797, -2.578
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
 shapes/0/trigger = false
 space_override = 0
@@ -547,7 +568,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 10 )
+script/script = ExtResource( 13 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="butt_area"]
 
@@ -560,7 +581,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 13 )
+stream/stream = ExtResource( 15 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -573,7 +594,7 @@ stream/buffering_ms = 500
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.50609, 0 )
-shape = SubResource( 9 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
@@ -584,7 +605,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, -2.30325, 2.55797, 3.839
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.349285, -1.59023, -0.373957 )
 shapes/0/trigger = false
 space_override = 0
@@ -599,7 +620,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 10 )
+script/script = ExtResource( 13 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="ghoul_area"]
 
@@ -612,7 +633,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 14 )
+stream/stream = ExtResource( 16 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -625,7 +646,7 @@ stream/buffering_ms = 500
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.349285, -1.59023, -0.373957 )
-shape = SubResource( 9 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
@@ -636,7 +657,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 1.44235, 2.55797, -2.465
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 9 )
+shapes/0/shape = SubResource( 6 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.349285, -1.59023, -0.373957 )
 shapes/0/trigger = false
 space_override = 0
@@ -651,7 +672,7 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 10 )
+script/script = ExtResource( 13 )
 
 [node name="audio" type="SpatialStreamPlayer" parent="ghoul_area1"]
 
@@ -664,7 +685,7 @@ params/attenuation/max_distance = 3.0
 params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
-stream/stream = ExtResource( 14 )
+stream/stream = ExtResource( 16 )
 stream/play = false
 stream/loop = true
 stream/volume_db = 0.0
@@ -677,13 +698,13 @@ stream/buffering_ms = 500
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0.349285, -1.59023, -0.373957 )
-shape = SubResource( 9 )
+shape = SubResource( 6 )
 trigger = false
 _update_shape_index = 0
 
 [node name="blum" type="StreamPlayer" parent="."]
 
-stream/stream = ExtResource( 15 )
+stream/stream = ExtResource( 17 )
 stream/play = false
 stream/loop = false
 stream/volume_db = 0.0
@@ -704,7 +725,7 @@ params/attenuation/distance_exp = 1.0
 params/emission_cone/degrees = 180.0
 params/emission_cone/attenuation_db = -6.0
 config/polyphony = 1
-config/samples = SubResource( 5 )
+config/samples = SubResource( 7 )
 
 [node name="blum_area" type="Area" parent="."]
 
@@ -713,7 +734,7 @@ transform/local = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 8.09308, 1.01067, 4.4427
 input/ray_pickable = false
 input/capture_on_drag = false
 shape_count = 1
-shapes/0/shape = SubResource( 10 )
+shapes/0/shape = SubResource( 8 )
 shapes/0/transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shapes/0/trigger = false
 space_override = 0
@@ -728,12 +749,12 @@ monitoring = true
 monitorable = true
 collision/layers = 1
 collision/mask = 1
-script/script = ExtResource( 23 )
+script/script = ExtResource( 25 )
 
 [node name="CollisionShape" type="CollisionShape" parent="blum_area"]
 
 _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
-shape = SubResource( 10 )
+shape = SubResource( 8 )
 trigger = false
 _update_shape_index = 0
 

@@ -2,6 +2,7 @@
 extends Control
 signal move_con(input)
 signal play_sample(samp_name)
+signal switch_music(mode)
 # Simple Tetris-like demo, (c) 2012 Juan Linietsky
 # Implemented by using a regular Control and drawing on it during the _draw() callback.
 # The drawing surface is updated only when changes happen (by calling update())
@@ -163,12 +164,14 @@ func game_over():
 	game_over = true
 	get_node("gameover").set_text("R to Restart")
 	emit_signal("play_sample", "death")
+	emit_signal("switch_music", "attract")
 	update()
 
 func restart_pressed():
 	score = 0
 	score_label.set_text("0")
 	cells.clear()
+	emit_signal("switch_music", "in-game")
 	get_node("gameover").set_text("")
 	piece_active = true
 	get_node("../restart").release_focus()
