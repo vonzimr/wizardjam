@@ -15,6 +15,12 @@ const MAX_SHAPES = 7
 var timer
 var logo
 
+#Difficulty Settings
+var game_speed = 1
+var next_level = 300
+var level = 0
+
+
 var gameover_label
 var attract_label
 
@@ -51,7 +57,7 @@ func ingame_state():
 	logo.hide()
 	attract_label.hide()
 	gameover_label.hide()
-	timer.set_wait_time(1.5)
+	timer.set_wait_time(game_speed)
 	timer.start()
 	score = 0
 	score_label.set_text("0")
@@ -372,11 +378,23 @@ func _ready():
 func setup_game():
 	setup(20, 30)
 	set_process_input(true)
+
+func increase_level(score):
+	var increase_level = next_level - score
+	if increase_level < 0:
+		next_level += 300
+		level += 1
+		game_speed += .1
+		timer.set_wait_time(max(.05, 1 - game_speed))
+		timer.start()
+		get_parent().get_node("level_num").set_text(str(level))
 	
+
 
 
 func _process(delta):
 	if(cur_state == GAMEOVER):
+		level = 0
 		gameover_label.show()
 		var time = gameover_timer.get_time_left()
 		print(time)
@@ -384,3 +402,7 @@ func _process(delta):
 		if(time == 0):
 			gameover_label.hide()
 			attract_state()
+	if(cur_state == INGAME):
+		increase_level(score)
+
+	
