@@ -4,7 +4,7 @@ var db
 
 func _ready():
 	var Connection = preload("res://scripts/Game_Client.gd")
-	db = Connection.new("http://localhost", 8080)
+	db = Connection.new("http://endingthealphabet.xyz", 80)
 	
 	#Shows room code
 	print(db.get_room_url())
