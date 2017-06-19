@@ -11,7 +11,6 @@ func _ready():
 	audio = get_node("audio")
 	
 func _play_audio(body):
-	print(position)
 	if(body.is_in_group("player")):
 		audio.play(position)
 	

@@ -20,7 +20,6 @@ func _ready():
 func switch_music(mode):
 	position = 0
 	audio.stop()
-	print(mode)
 	if mode == "attract":
 		audio = attract_music
 	else:
@@ -29,10 +28,7 @@ func switch_music(mode):
 
 
 func _play_audio(body):
-	print("Trying to play audio")
-	print(position)
 	if(body.is_in_group("player")):
-		print("Hello?")
 		audio.play(position)
 	
 func _stop_audio(body):

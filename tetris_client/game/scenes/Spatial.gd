@@ -36,17 +36,13 @@ func _play_sample(samp_name):
 	samp.play(samp_name)
 	
 func _move_con(input):
-	print("Hello")
-	print(anim.get_current_animation())
 	anim.play(input)
 	
 
 
 func _on_area_input_event(camera, event, click_pos, click_normal, shape_idx):
-	print("hello")
 	# Use click pos (click in 3d space, convert to area space)
 	var pos = get_node("Area").get_global_transform().affine_inverse()*click_pos
-	print(pos)
 	# Convert to 2D
 	pos = Vector2(pos.x, pos.y)
 	# Convert to viewport coordinate system
