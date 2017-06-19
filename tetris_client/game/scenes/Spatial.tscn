@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=1]
+[gd_scene load_steps=97 format=1]
 
 [ext_resource path="res://scenes/Spatial.gd" type="Script" id=1]
 [ext_resource path="res://images/white_block.png" type="Texture" id=2]
@@ -23,6 +23,68 @@
 [ext_resource path="res://samples/rotate right.smp" type="Sample" id=21]
 [ext_resource path="res://samples/rotate right option 2.smp" type="Sample" id=22]
 [ext_resource path="res://scripts/blum_switch.gd" type="Script" id=23]
+[ext_resource path="res://images/anim_out/0001.tex" type="Texture" id=24]
+[ext_resource path="res://images/anim_out/0002.tex" type="Texture" id=25]
+[ext_resource path="res://images/anim_out/0003.tex" type="Texture" id=26]
+[ext_resource path="res://images/anim_out/0004.tex" type="Texture" id=27]
+[ext_resource path="res://images/anim_out/0005.tex" type="Texture" id=28]
+[ext_resource path="res://images/anim_out/0006.tex" type="Texture" id=29]
+[ext_resource path="res://images/anim_out/0007.tex" type="Texture" id=30]
+[ext_resource path="res://images/anim_out/0008.tex" type="Texture" id=31]
+[ext_resource path="res://images/anim_out/0009.tex" type="Texture" id=32]
+[ext_resource path="res://images/anim_out/0010.tex" type="Texture" id=33]
+[ext_resource path="res://images/anim_out/0011.tex" type="Texture" id=34]
+[ext_resource path="res://images/anim_out/0012.tex" type="Texture" id=35]
+[ext_resource path="res://images/anim_out/0013.tex" type="Texture" id=36]
+[ext_resource path="res://images/anim_out/0014.tex" type="Texture" id=37]
+[ext_resource path="res://images/anim_out/0015.tex" type="Texture" id=38]
+[ext_resource path="res://images/anim_out/0016.tex" type="Texture" id=39]
+[ext_resource path="res://images/anim_out/0017.tex" type="Texture" id=40]
+[ext_resource path="res://images/anim_out/0018.tex" type="Texture" id=41]
+[ext_resource path="res://images/anim_out/0019.tex" type="Texture" id=42]
+[ext_resource path="res://images/anim_out/0020.tex" type="Texture" id=43]
+[ext_resource path="res://images/anim_out/0021.tex" type="Texture" id=44]
+[ext_resource path="res://images/anim_out/0022.tex" type="Texture" id=45]
+[ext_resource path="res://images/anim_out/0023.tex" type="Texture" id=46]
+[ext_resource path="res://images/anim_out/0024.tex" type="Texture" id=47]
+[ext_resource path="res://images/anim_out/0025.tex" type="Texture" id=48]
+[ext_resource path="res://images/anim_out/0026.tex" type="Texture" id=49]
+[ext_resource path="res://images/anim_out/0027.tex" type="Texture" id=50]
+[ext_resource path="res://images/anim_out/0028.tex" type="Texture" id=51]
+[ext_resource path="res://images/anim_out/0029.tex" type="Texture" id=52]
+[ext_resource path="res://images/anim_out/0030.tex" type="Texture" id=53]
+[ext_resource path="res://images/anim_out/0031.tex" type="Texture" id=54]
+[ext_resource path="res://images/anim_out/0032.tex" type="Texture" id=55]
+[ext_resource path="res://images/anim_out/0033.tex" type="Texture" id=56]
+[ext_resource path="res://images/anim_out/0034.tex" type="Texture" id=57]
+[ext_resource path="res://images/anim_out/0035.tex" type="Texture" id=58]
+[ext_resource path="res://images/anim_out/0036.tex" type="Texture" id=59]
+[ext_resource path="res://images/anim_out/0037.tex" type="Texture" id=60]
+[ext_resource path="res://images/anim_out/0038.tex" type="Texture" id=61]
+[ext_resource path="res://images/anim_out/0039.tex" type="Texture" id=62]
+[ext_resource path="res://images/anim_out/0040.tex" type="Texture" id=63]
+[ext_resource path="res://images/anim_out/0041.tex" type="Texture" id=64]
+[ext_resource path="res://images/anim_out/0042.tex" type="Texture" id=65]
+[ext_resource path="res://images/anim_out/0043.tex" type="Texture" id=66]
+[ext_resource path="res://images/anim_out/0044.tex" type="Texture" id=67]
+[ext_resource path="res://images/anim_out/0045.tex" type="Texture" id=68]
+[ext_resource path="res://images/anim_out/0046.tex" type="Texture" id=69]
+[ext_resource path="res://images/anim_out/0047.tex" type="Texture" id=70]
+[ext_resource path="res://images/anim_out/0048.tex" type="Texture" id=71]
+[ext_resource path="res://images/anim_out/0049.tex" type="Texture" id=72]
+[ext_resource path="res://images/anim_out/0050.tex" type="Texture" id=73]
+[ext_resource path="res://images/anim_out/0051.tex" type="Texture" id=74]
+[ext_resource path="res://images/anim_out/0052.tex" type="Texture" id=75]
+[ext_resource path="res://images/anim_out/0053.tex" type="Texture" id=76]
+[ext_resource path="res://images/anim_out/0054.tex" type="Texture" id=77]
+[ext_resource path="res://images/anim_out/0055.tex" type="Texture" id=78]
+[ext_resource path="res://images/anim_out/0056.tex" type="Texture" id=79]
+[ext_resource path="res://images/anim_out/0057.tex" type="Texture" id=80]
+[ext_resource path="res://images/anim_out/0058.tex" type="Texture" id=81]
+[ext_resource path="res://images/anim_out/0059.tex" type="Texture" id=82]
+[ext_resource path="res://images/anim_out/0060.tex" type="Texture" id=83]
+[ext_resource path="res://images/anim_out/0061.tex" type="Texture" id=84]
+[ext_resource path="res://scripts/out_of_order.gd" type="Script" id=85]
 
 [sub_resource type="CanvasItemShaderGraph" id=11]
 
@@ -56,7 +118,7 @@ extents = Vector3( 0.49973, 0.501223, 0.0563728 )
 flags/visible = true
 flags/double_sided = false
 flags/invert_faces = false
-flags/unshaded = false
+flags/unshaded = true
 flags/on_top = false
 flags/lightmap_on_uv2 = true
 flags/colarray_is_srgb = true
@@ -68,15 +130,15 @@ fixed_flags/use_color_array = false
 fixed_flags/use_point_size = false
 fixed_flags/discard_alpha = false
 fixed_flags/use_xy_normalmap = false
-params/diffuse = Color( 1, 1, 1, 1 )
+params/diffuse = Color( 0.636719, 0.636719, 0.636719, 1 )
 params/specular = Color( 0, 0, 0, 1 )
 params/emission = Color( 0, 0, 0, 1 )
-params/specular_exp = 40
+params/specular_exp = 1.0
 params/detail_mix = 1.0
 params/normal_depth = 1
 params/shader = 0
 params/shader_param = 0.5
-params/glow = 0
+params/glow = 0.0
 params/point_size = 1.0
 uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 textures/diffuse_tc = 0
@@ -90,9 +152,9 @@ textures/shade_param_tc = 0
 
 [sub_resource type="Environment" id=8]
 
-ambient_light/enabled = true
-ambient_light/color = Color( 0.942759, 0.949219, 0.12236, 1 )
-ambient_light/energy = 0.06
+ambient_light/enabled = false
+ambient_light/color = Color( 1, 1, 1, 1 )
+ambient_light/energy = 0.13
 fxaa/enabled = true
 background/mode = 1
 background/color = Color( 0, 0, 0, 1 )
@@ -100,13 +162,13 @@ background/energy = 1.0
 background/scale = 1.0
 background/glow = 0.0
 background/canvas_max_layer = null
-glow/enabled = false
-glow/blur_passes = 2
-glow/blur_scale = 0.92
-glow/blur_strength = 2.72
+glow/enabled = true
+glow/blur_passes = 1
+glow/blur_scale = 0.03
+glow/blur_strength = 0.01
 glow/blur_blend_mode = 1
-glow/bloom = 0.1
-glow/bloom_treshold = 0.66
+glow/bloom = 0.0
+glow/bloom_treshold = 0.11
 dof_blur/enabled = true
 dof_blur/blur_passes = 1
 dof_blur/begin = 100.0
@@ -184,6 +246,109 @@ samples/drop = {
 [sub_resource type="BoxShape" id=10]
 
 extents = Vector3( 1.47425, 1, 1 )
+
+[sub_resource type="SpriteFrames" id=14]
+
+animations = [ {
+"frames": [ ExtResource( 24 ), ExtResource( 25 ), ExtResource( 26 ), ExtResource( 27 ), ExtResource( 28 ), ExtResource( 29 ), ExtResource( 30 ), ExtResource( 31 ), ExtResource( 32 ), ExtResource( 33 ), ExtResource( 34 ), ExtResource( 35 ), ExtResource( 36 ), ExtResource( 37 ), ExtResource( 38 ), ExtResource( 39 ), ExtResource( 40 ), ExtResource( 41 ), ExtResource( 42 ), ExtResource( 43 ), ExtResource( 44 ), ExtResource( 45 ), ExtResource( 46 ), ExtResource( 47 ), ExtResource( 48 ), ExtResource( 49 ), ExtResource( 50 ), ExtResource( 51 ), ExtResource( 52 ), ExtResource( 53 ), ExtResource( 54 ), ExtResource( 55 ), ExtResource( 56 ), ExtResource( 57 ), ExtResource( 58 ), ExtResource( 59 ), ExtResource( 60 ), ExtResource( 61 ), ExtResource( 62 ), ExtResource( 63 ), ExtResource( 64 ), ExtResource( 65 ), ExtResource( 66 ), ExtResource( 67 ), ExtResource( 68 ), ExtResource( 69 ), ExtResource( 70 ), ExtResource( 71 ), ExtResource( 72 ), ExtResource( 73 ), ExtResource( 74 ), ExtResource( 75 ), ExtResource( 76 ), ExtResource( 77 ), ExtResource( 78 ), ExtResource( 79 ), ExtResource( 80 ), ExtResource( 81 ), ExtResource( 82 ), ExtResource( 83 ), ExtResource( 84 ) ],
+"loop": true,
+"name": "default",
+"speed": 24.0
+} ]
+
+[sub_resource type="FixedMaterial" id=13]
+
+flags/visible = true
+flags/double_sided = false
+flags/invert_faces = false
+flags/unshaded = false
+flags/on_top = false
+flags/lightmap_on_uv2 = true
+flags/colarray_is_srgb = true
+params/blend_mode = 0
+params/depth_draw = 1
+params/line_width = 0.0
+fixed_flags/use_alpha = false
+fixed_flags/use_color_array = false
+fixed_flags/use_point_size = false
+fixed_flags/discard_alpha = false
+fixed_flags/use_xy_normalmap = false
+params/diffuse = Color( 1, 1, 1, 1 )
+params/specular = Color( 0, 0, 0, 1 )
+params/emission = Color( 0, 0, 0, 1 )
+params/specular_exp = 40
+params/detail_mix = 1.0
+params/normal_depth = 1
+params/shader = 0
+params/shader_param = 0.5
+params/glow = 0
+params/point_size = 1.0
+uv_xform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+textures/diffuse_tc = 0
+textures/detail_tc = 0
+textures/specular_tc = 0
+textures/emission_tc = 0
+textures/specular_exp_tc = 0
+textures/glow_tc = 0
+textures/normal_tc = 0
+textures/shade_param_tc = 0
+
+[sub_resource type="Animation" id=15]
+
+resource/name = "blum"
+length = 1.0
+loop = false
+step = 0.1
+tracks/0/type = "value"
+tracks/0/path = NodePath("WorldEnvironment:environment:glow/blur_passes")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 1,
+"values": [ 1, 4 ]
+}
+tracks/1/type = "value"
+tracks/1/path = NodePath("WorldEnvironment:environment:glow/blur_scale")
+tracks/1/interp = 1
+tracks/1/imported = false
+tracks/1/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.03, 2.64 ]
+}
+tracks/2/type = "value"
+tracks/2/path = NodePath("WorldEnvironment:environment:glow/blur_strength")
+tracks/2/interp = 1
+tracks/2/imported = false
+tracks/2/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.01, 1.04 ]
+}
+tracks/3/type = "value"
+tracks/3/path = NodePath("WorldEnvironment:environment:glow/bloom")
+tracks/3/interp = 1
+tracks/3/imported = false
+tracks/3/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.0, 5.96 ]
+}
+tracks/4/type = "value"
+tracks/4/path = NodePath("WorldEnvironment:environment:glow/bloom_treshold")
+tracks/4/interp = 1
+tracks/4/imported = false
+tracks/4/keys = {
+"times": FloatArray( 0, 1 ),
+"transitions": FloatArray( 1, 1 ),
+"update": 0,
+"values": [ 0.11, 0.39 ]
+}
 
 [node name="Spatial" type="Spatial"]
 
@@ -286,9 +451,9 @@ focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
 margin/left = 398.0
-margin/top = 305.0
+margin/top = 303.0
 margin/right = -408.0
-margin/bottom = -294.0
+margin/bottom = -296.0
 
 [node name="diag_text" type="Label" parent="Control 3"]
 
@@ -400,7 +565,7 @@ geometry/billboard = false
 geometry/billboard_y = false
 geometry/depth_scale = false
 geometry/visible_in_all_rooms = false
-geometry/use_baked_light = false
+geometry/use_baked_light = true
 geometry/baked_light_tex_id = 0
 quad/axis = 2
 quad/size = Vector2( 1, 1 )
@@ -736,5 +901,186 @@ _import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
 shape = SubResource( 10 )
 trigger = false
 _update_shape_index = 0
+
+[node name="out_of_order" type="Viewport" parent="."]
+
+rect = Rect2( 0, 0, 800, 600 )
+own_world = false
+world = null
+transparent_bg = false
+render_target/enabled = true
+render_target/v_flip = false
+render_target/clear_on_new_frame = true
+render_target/filter = false
+render_target/gen_mipmaps = false
+render_target/update_mode = 2
+audio_listener/enable_2d = false
+audio_listener/enable_3d = false
+physics/object_picking = false
+gui/disable_input = false
+
+[node name="AnimatedSprite" type="AnimatedSprite" parent="out_of_order"]
+
+transform/scale = Vector2( 1.1, 1.1 )
+frames = SubResource( 14 )
+animation = "default"
+frame = 13
+playing = true
+offset = Vector2( 400, 275 )
+
+[node name="out_order_quad1" type="Quad" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -1, -5.6426e-07, 0, -4.59084e-07, 0.813604, 0.581419, -3.28071e-07, 0.581419, -0.813604, 1.51075, 2.50176, 4.53887 )
+layers = 1
+geometry/visible = true
+geometry/material_override = SubResource( 13 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+quad/axis = 2
+quad/size = Vector2( 0.8, 0.6 )
+quad/offset = Vector2( 0, 0 )
+quad/centered = true
+script/script = ExtResource( 85 )
+
+[node name="out_order_quad4" type="Quad" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.999962, -0.00508052, 0.00710993, -3.16829e-07, 0.813604, 0.581419, -0.00873858, -0.581397, 0.813573, 1.85274, 2.50176, -3.82508 )
+layers = 1
+geometry/visible = true
+geometry/material_override = SubResource( 13 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+quad/axis = 2
+quad/size = Vector2( 0.8, 0.6 )
+quad/offset = Vector2( 0, 0 )
+quad/centered = true
+script/script = ExtResource( 85 )
+
+[node name="out_order_quad2" type="Quad" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -1, -5.6426e-07, 0, -4.59084e-07, 0.813604, 0.581419, -3.28071e-07, 0.581419, -0.813604, -2.01544, 2.50176, 4.53887 )
+layers = 1
+geometry/visible = true
+geometry/material_override = SubResource( 13 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+quad/axis = 2
+quad/size = Vector2( 0.8, 0.6 )
+quad/offset = Vector2( 0, 0 )
+quad/centered = true
+script/script = ExtResource( 85 )
+
+[node name="out_order_quad4 3" type="Quad" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.999403, -0.0200839, 0.0281049, -3.16829e-07, 0.813604, 0.581419, -0.0345434, -0.581072, 0.813119, 5.50898, 2.50176, -3.75655 )
+layers = 1
+geometry/visible = true
+geometry/material_override = SubResource( 13 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+quad/axis = 2
+quad/size = Vector2( 0.8, 0.6 )
+quad/offset = Vector2( 0, 0 )
+quad/centered = true
+script/script = ExtResource( 85 )
+
+[node name="out_order_quad3" type="Quad" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( -1, -5.6426e-07, 0, -4.59084e-07, 0.813604, 0.581419, -3.28071e-07, 0.581419, -0.813604, 4.90667, 2.50176, 4.53887 )
+layers = 1
+geometry/visible = true
+geometry/material_override = SubResource( 13 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+quad/axis = 2
+quad/size = Vector2( 0.8, 0.6 )
+quad/offset = Vector2( 0, 0 )
+quad/centered = true
+script/script = ExtResource( 85 )
+
+[node name="out_order_quad4 2" type="Quad" parent="."]
+
+_import_transform = Transform( 1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0 )
+transform/local = Transform( 0.999217, 0.00159847, -0.0395297, 0.0216624, 0.813979, 0.58049, 0.0331043, -0.580891, 0.813307, -2.22914, 2.50176, -3.76897 )
+layers = 1
+geometry/visible = true
+geometry/material_override = SubResource( 13 )
+geometry/cast_shadow = 1
+geometry/receive_shadows = true
+geometry/range_begin = 0.0
+geometry/range_end = 0.0
+geometry/extra_cull_margin = 0.0
+geometry/billboard = false
+geometry/billboard_y = false
+geometry/depth_scale = false
+geometry/visible_in_all_rooms = false
+geometry/use_baked_light = false
+geometry/baked_light_tex_id = 0
+quad/axis = 2
+quad/size = Vector2( 0.8, 0.6 )
+quad/offset = Vector2( 0, 0 )
+quad/centered = true
+script/script = ExtResource( 85 )
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/blum = SubResource( 15 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = ""
 
 
