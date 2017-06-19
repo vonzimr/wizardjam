@@ -945,7 +945,7 @@ gui/disable_input = false
 transform/scale = Vector2( 1.1, 1.1 )
 frames = SubResource( 9 )
 animation = "default"
-frame = 26
+frame = 38
 playing = true
 offset = Vector2( 400, 275 )
 
