@@ -81,7 +81,7 @@ var block = preload("res://images/block.png")
 var previews = []
 var block_colors = [
 	Color(1, 0.5, 0.5),
-	Color(0.5, 1, 0.5, .1),
+	Color(0.5, .5, 0.5, .5),
 	Color(0.5, 0.5, 1),
 	Color(0.8, 0.4, 0.8),
 	Color(0.8, 0.8, 0.4),
@@ -144,8 +144,8 @@ func update_previews():
 			previews[i].hide()
 
 func _draw():
-	var sb = get_stylebox("bg", "Tree") # Use line edit bg
-	draw_style_box(sb, Rect2(Vector2(), get_size()).grow(3))
+#	var sb = get_stylebox("bg", "Tree") # Use line edit bg
+#	draw_style_box(sb, Rect2(Vector2(), get_size()).grow(3))
 #	draw_rect(Rect2(piece_pos.x*16, 0, 16, 500), block_colors[1] )
 	var bs = block.get_size() #Used for multiplying the rect later on (size of image)
 	for y in range(height):
