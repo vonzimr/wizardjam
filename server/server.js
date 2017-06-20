@@ -7,8 +7,6 @@ var mongoose = require('mongoose');
 var config = require('./config');
 
 var jwt = require('jsonwebtoken');
-var morgan = require('morgan');
-var logger = require('morgan-body');
 var token = require('rand-token');
 var isValidMove = require('./middleware/validmove.js');
 
@@ -23,10 +21,8 @@ app.use(bodyParser.json());
 
 app.use(express.static('assets'))
 
-app.use(morgan('dev'))
-logger(app);
 
-var port = process.env.PORT || 8080;
+var port = process.env.PORT || 80;
 
 //ROUTES
 var router = express.Router();
@@ -37,7 +33,6 @@ app.get('/', function (req, res){
 
 
 function isAuthenticated(req, res, next) {
-    console.log("LOL");
     var token = req.body.token || req.query.token || req.headers['x-access-token'];
     
     if (token){
@@ -86,8 +81,7 @@ router.route('/room/create')
     });
 
 router.route('/room/id/:room_id')
-//  .post(isValidMove, function(req, res){
-    .post(function(req, res){
+  .post(isValidMove, function(req, res){
 
         Room.update({room_id: req.params.room_id}, 
             {$push: 
@@ -133,7 +127,6 @@ router.route('/room/id/:room_id/submissions/:count')
             }
             else{
                 for(var i = 0; i < req.params.count; i++){
-                    console.log(req.params.room_id);
                     Room.update({room_id: req.params.room_id}, 
                         {$pop: { "submissions": -1}}, 
                         function(err, sub){

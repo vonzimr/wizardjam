@@ -22,32 +22,13 @@ function validMove(array) {
         }
     }
 
-    if (count > 6) {
-        console.log("Too many cells");
-        return false;
-    } else if (count < 2) {
-        console.log("Too few cells filled");
-        return false;
+    if(count < 2){
+        return false
     }
-    for (var i = 0; i < 16; i++) {
-        var curr = [i%4, Math.floor(i/4)];
-        if (array[curr[0]][curr[1]]) {
-            for (var j = 0; j < 16; j++) {
-                var dest = [j%4, Math.floor(j/4)];
-                if (array[dest[0]][dest[1]]) {
-                    var checked = [];
-                    for (var k = 0; k < 4; k++) {
-                        checked[k] = [0, 0, 0, 0];
-                    }
-                    if (!path(array, checked, curr, dest)) {
-                        console.log("Cells not connected");
-                        return false;
-                    }
-                }
-            }
-            return true;
-        }
+    else{
+        return true
     }
+
 }
 
 
