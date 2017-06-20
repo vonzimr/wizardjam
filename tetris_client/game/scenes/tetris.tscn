@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=1]
+[gd_scene load_steps=9 format=1]
 
 [ext_resource path="res://scripts/tetris.gd" type="Script" id=1]
 [ext_resource path="res://images/tetris_screen_texture.png" type="Texture" id=2]
@@ -7,6 +7,7 @@
 [ext_resource path="res://128.fnt" type="BitmapFont" id=5]
 [ext_resource path="res://scenes/diag_text.tscn" type="PackedScene" id=6]
 [ext_resource path="res://images/block.png" type="Texture" id=7]
+[ext_resource path="res://scenes/preview.tscn" type="PackedScene" id=8]
 
 [node name="Tetris" type="Control"]
 
@@ -51,10 +52,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 495.0
-margin/top = 471.0
-margin/right = 588.0
-margin/bottom = 507.0
+margin/left = -138.0
+margin/top = 460.0
+margin/right = -45.0
+margin/bottom = 496.0
 custom_fonts/font = ExtResource( 5 )
 text = "Score:"
 percent_visible = 1.0
@@ -67,10 +68,10 @@ focus/ignore_mouse = true
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 0
-margin/left = 467.0
-margin/top = 511.0
-margin/right = 508.0
-margin/bottom = 547.0
+margin/left = -141.0
+margin/top = 515.0
+margin/right = -100.0
+margin/bottom = 551.0
 custom_fonts/font = ExtResource( 5 )
 text = "0"
 percent_visible = 1.0
@@ -94,6 +95,10 @@ shortcut = null
 text = "Restart"
 flat = false
 
+[node name="diag_text" parent="." instance=ExtResource( 6 )]
+
+transform/pos = Vector2( -201.908, 0 )
+
 [node name="msg" type="Label" parent="."]
 
 focus/ignore_mouse = true
@@ -107,19 +112,6 @@ margin/bottom = 14.0
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
-
-[node name="diag_text" parent="." instance=ExtResource( 6 )]
-
-transform/pos = Vector2( 0, 0 )
-transform/scale = Vector2( 1, 1 )
-
-[node name="Label" parent="diag_text"]
-
-margin/left = -178.0
-margin/right = 622.0
-text = ""
-align = 1
-autowrap = true
 
 [node name="Sprite" type="Sprite" parent="."]
 
@@ -194,7 +186,22 @@ percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
 
+[node name="previews" type="Node2D" parent="."]
+
+transform/pos = Vector2( 474.88, 46.5051 )
+
+[node name="preview1" parent="previews" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( -17, 33 )
+
+[node name="preview2" parent="previews" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( -16, 210 )
+
+[node name="preview3" parent="previews" instance=ExtResource( 8 )]
+
+transform/pos = Vector2( -16, 373 )
+
 [connection signal="pressed" from="restart" to="Grid" method="restart_pressed"]
 
 
-[editable path="diag_text"]

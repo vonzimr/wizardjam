@@ -95,16 +95,32 @@ var block_colors = [
 	Color(0.7, 0.7, 0.7)]
 	
 var web_block_shapes = [
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"},
+{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ], "submitted_by": "Paul"}
 ]
 
-var block_shapes = [
-	{"msg": "", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ]},
-	{"msg": "", "shape": [ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]},
-	{"msg": "", "shape": [ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ]},
-	{"msg": "", "shape": [ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]},
-	{"msg": "", "shape": [ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ]},
-	{"msg": "", "shape": [ Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]},
-	{"msg": "", "shape": [ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}]
+onready var block_shapes = [
+	{"msg": "Wizard", "shape": [ Vector2(0, -1), Vector2(0, 0), Vector2(0, 1), Vector2(0, 2) ]},
+	{"msg": "Make your friends submit blocks", "shape": [ Vector2(0, 0), Vector2(1, 0), Vector2(1, 1), Vector2(0, 1) ]},
+	{"msg": "You got this block cuz ur lonely", "shape": [ Vector2(-1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(1, 0) ]},
+	{"msg": "Boring blocks", "shape": [ Vector2(1, 1), Vector2(0, 1), Vector2(0, 0), Vector2(-1, 0) ]},
+	{"msg": "There are only as many canned quotes as there are tetronimoes", "shape": [ Vector2(-1, 1), Vector2(-1, 0), Vector2(0, 0), Vector2(1, 0) ]},
+	{"msg": "Have you tried BLUM mode?", "shape": [ Vector2(1, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]},
+	{"msg": "Pssst... " + get_parent().get_node("db_node").db.get_room_code(), "shape": [ Vector2(0, 1), Vector2(1, 0), Vector2(0, 0), Vector2(-1, 0) ]}]
 
 
 func add_web_block(block, msg, submitted_by):
@@ -259,6 +275,7 @@ func fast_drop():
 func show_message(msg):
 	var label = get_node("../diag_text/Label")
 	label.set_dialog_text([msg])
+	label.next_dialog()
 	var speed = 1
 	if piece_dic["msg"].length() != 0:
 		speed = 1.000 / piece_dic["msg"].length()
@@ -353,12 +370,10 @@ func setup(w, h):
 
 
 func create_preview_windows():
+	var p_nodes = get_parent().get_node("previews")
 	var preview_scene = load("res://scenes/preview.tscn")
-	for i in range(3):
-		var preview = preview_scene.instance()
-		preview.init(Vector2(450, 150*i))
-		previews.append(preview)
-		add_child(preview)
+	for p in p_nodes.get_children():
+		previews.append(p)
 
 
 func _ready():
@@ -397,7 +412,6 @@ func _process(delta):
 		level = 0
 		gameover_label.show()
 		var time = gameover_timer.get_time_left()
-		print(time)
 		gameover_label.set_text("Insert More Coins\n(Tap R More)\nTime Remaining: "  + str(floor(time)))
 		if(time == 0):
 			gameover_label.hide()

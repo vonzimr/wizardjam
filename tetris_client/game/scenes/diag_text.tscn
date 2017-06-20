@@ -37,20 +37,10 @@ tracks/0/path = NodePath("Label:visibility/opacity")
 tracks/0/interp = 1
 tracks/0/imported = false
 tracks/0/keys = {
-"times": FloatArray( 0.965642, 1 ),
+"times": FloatArray( 0.91, 0.97 ),
 "transitions": FloatArray( 1, 1 ),
 "update": 0,
 "values": [ 1.0, 0.0 ]
-}
-tracks/1/type = "value"
-tracks/1/path = NodePath("Label:rect/pos")
-tracks/1/interp = 2
-tracks/1/imported = false
-tracks/1/keys = {
-"times": FloatArray(  ),
-"transitions": FloatArray(  ),
-"update": 0,
-"values": [  ]
 }
 
 [node name="diag_text" type="Node2D"]
@@ -61,7 +51,6 @@ z/relative = false
 
 [node name="Label" type="Label" parent="."]
 
-visibility/opacity = 0.0
 material/material = SubResource( 2 )
 focus/ignore_mouse = true
 focus/stop_mouse = true
@@ -72,8 +61,9 @@ margin/top = 0.0
 margin/right = 826.0
 margin/bottom = 600.0
 custom_fonts/font = ExtResource( 1 )
-text = "Weeeee this is a test of a very long string yes yes yes"
+align = 1
 valign = 1
+autowrap = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
